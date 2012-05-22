@@ -1,0 +1,4 @@
+easy_install ZConfig zdaemon zope.interface zope.proxy zope.testing
+easy_install ZODB3
+easy_install zodbbrowser
+easy_install Cython
