@@ -11,6 +11,35 @@ from PyQt4 import QtGui, QtCore, Qt, QtWebKit
 import hexedit__ as hexedit
 import chrysanthemum_rc
 
+try:
+    from dis import findlinestarts as _findlinestarts
+except ImportError:
+    # Definition copied from Python's Lib/dis.py - findlinestarts was not
+    # available in Python 2.3.  This function is copyright Python Software
+    # Foundation, released under the Python license:
+    # http://www.python.org/psf/license/
+    def _findlinestarts(code):
+        """Find the offsets in a byte code which are start of lines in the source.
+
+        Generate pairs (offset, lineno) as described in Python/compile.c.
+
+        """
+        byte_increments = [ord(c) for c in code.co_lnotab[0::2]]
+        line_increments = [ord(c) for c in code.co_lnotab[1::2]]
+
+        lastlineno = None
+        lineno = code.co_firstlineno
+        addr = 0
+        for byte_incr, line_incr in zip(byte_increments, line_increments):
+            if byte_incr:
+                if lineno != lastlineno:
+                    yield (addr, lineno)
+                    lastlineno = lineno
+                addr += byte_incr
+            lineno += line_incr
+        if lineno != lastlineno:
+            yield (addr, lineno)
+
 CO_OPTIMIZED, CO_NEWLOCALS, CO_VARARGS, CO_VARKEYWORDS = 0x1, 0x2, 0x4, 0x8
 CO_NESTED, CO_GENERATOR, CO_NOFREE = 0x10, 0x20, 0x40
 
@@ -175,7 +204,11 @@ def generate_disassembly(co, lasti=-1):
 
 	code = co.co_code
 	labels = dis.findlabels(code)
-	linestarts = dict(dis.findlinestarts(co))
+
+	#linestarts = range(0,0)
+	#linestarts = dict(dis.findlinestarts(co))
+	linestarts = dict(_findlinestarts(co))
+
 	n = len(code)
 	i = 0
 	extended_arg = 0
@@ -439,7 +472,8 @@ def map_model_index_to_path(index):
 			yield str(index.data(QtCore.Qt.DisplayRole).toString())
 			index = index.parent()
 		return
-	return '/'.join(reversed(list(walk_model_index(index))))
+	#return '/'.join(reversed(list(walk_model_index(index))))
+	return '/'.join(list(walk_model_index(index)))
 
 def map_path_to_model_index(path, model):
 	def walk_path_list(path_iter, item):
@@ -588,37 +622,37 @@ class MainWindow(QtGui.QMainWindow):
 		code_object = current.data(QtCore.Qt.UserRole + 1).toPyObject()
 		code_object_path = map_model_index_to_path(current)
 		self.handle_code_object(code_object, code_object_path)
-        on_code_object_view_current_changed = QtCore.pyqtSlot()(on_code_object_view_current_changed)
+        on_code_object_view_current_changed = QtCore.pyqtSlot(QtCore.QModelIndex, QtCore.QModelIndex)(on_code_object_view_current_changed)
 
 	#@QtCore.pyqtSlot(QtCore.QUrl)
 	def on_summary_view_link_clicked(self, url):
 		self.handle_pycode_url(url)
-        on_summary_view_link_clicked = QtCore.pyqtSlot()(on_summary_view_link_clicked)
+        on_summary_view_link_clicked = QtCore.pyqtSlot(QtCore.QUrl)(on_summary_view_link_clicked)
 
 	#@QtCore.pyqtSlot(QtCore.QUrl)
 	def on_disassembly_view_link_clicked(self, url):
 		self.handle_pycode_url(url)
-        on_disassembly_view_link_clicked = QtCore.pyqtSlot()(on_disassembly_view_link_clicked)
+        on_disassembly_view_link_clicked = QtCore.pyqtSlot(QtCore.QUrl)(on_disassembly_view_link_clicked)
 
 	#@QtCore.pyqtSlot(bool)
 	def on_menu_bar_open_triggered(self, checked=False):
 		self.open()
-        on_menu_bar_open_triggered = QtCore.pyqtSlot()(on_menu_bar_open_triggered)
+        on_menu_bar_open_triggered = QtCore.pyqtSlot(bool)(on_menu_bar_open_triggered)
 
 	#@QtCore.pyqtSlot(bool)
 	def on_menu_bar_close_triggered(self, checked=False):
 		self.close()
-        on_menu_bar_close_triggered = QtCore.pyqtSlot()(on_menu_bar_close_triggered)
+        on_menu_bar_close_triggered = QtCore.pyqtSlot(bool)(on_menu_bar_close_triggered)
 
 	#@QtCore.pyqtSlot(bool)
 	def on_menu_bar_reload_triggered(self, checked=False):
 		self.reload()
-        on_menu_bar_reload_triggered = QtCore.pyqtSlot()(on_menu_bar_reload_triggered)
+        on_menu_bar_reload_triggered = QtCore.pyqtSlot(bool)(on_menu_bar_reload_triggered)
 
 	#@QtCore.pyqtSlot(bool)
 	def on_menu_bar_about_triggered(self, checked=False):
 		self.about()
-        on_menu_bar_about_triggered = QtCore.pyqtSlot()(on_menu_bar_about_triggered)
+        on_menu_bar_about_triggered = QtCore.pyqtSlot(bool)(on_menu_bar_about_triggered)
 
 def main():
 	app = QtGui.QApplication(sys.argv)
