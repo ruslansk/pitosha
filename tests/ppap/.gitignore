@@ -1,3 +1,8 @@
 *.avi
 *.jpg
+*.zip
+*.tgz
+*.gz
+*.tar
+*.iso
 *.*~

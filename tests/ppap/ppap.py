@@ -58,9 +58,14 @@ if __name__ == '__main__':
     talktool.hello1()
     talktool.hello2()
 
+    import appcheck as apc
+    apc.modules.chkmod()
+    apc.packages.chkpkg()
+    apc.packages.downpack()
+    apc.packages.down('http://downloads.sourceforge.net/reactos/ReactOS-0.3.15-REL-live.zip')
+
     import fibo
     fibo.fib(1000)
 
     main()
     test()
-
