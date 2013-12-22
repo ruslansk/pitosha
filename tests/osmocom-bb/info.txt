@@ -1,0 +1,5 @@
+in  /osmocom-bb/src/shared/libosmocore:
+autoreconf -fi
+./configure
+make
+make install
