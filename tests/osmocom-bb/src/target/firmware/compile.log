@@ -1,0 +1,330 @@
+root@acer:/home/nouser/mobile/osmocom-bb/src/target/firmware# make -f Makefile.mtk
+  CC     apps/loader_mtk/main.o
+In file included from ../../shared/libosmocore/include/osmocom/core/msgb.h:25:0,
+                 from include/comm/sercomm.h:4,
+                 from apps/loader_mtk/main.c:40:
+../../shared/libosmocore/include/osmocom/core/msgb.h: In function 'msgb_alloc_headroom':
+../../shared/libosmocore/include/osmocom/core/utils.h:40:51: warning: typedef 'dummyheadroom_bigger' locally defined but not used [-Wunused-local-typedefs]
+ #define osmo_static_assert(exp, name) typedef int dummy##name [(exp) ? 1 : -1];
+                                                   ^
+../../shared/libosmocore/include/osmocom/core/msgb.h:386:2: note: in expansion of macro 'osmo_static_assert'
+  osmo_static_assert(size > headroom, headroom_bigger);
+  ^
+apps/loader_mtk/main.c: In function 'cmd_handler':
+apps/loader_mtk/main.c:254:3: warning: passing argument 2 of 'msgb_put_u32' makes integer from pointer without a cast [enabled by default]
+   msgb_put_u32(reply, the_flash.f_base);
+   ^
+In file included from include/comm/sercomm.h:4:0,
+                 from apps/loader_mtk/main.c:40:
+../../shared/libosmocore/include/osmocom/core/msgb.h:215:20: note: expected 'uint32_t' but argument is of type 'void *'
+ static inline void msgb_put_u32(struct msgb *msgb, uint32_t word)
+                    ^
+apps/loader_mtk/main.c:351:15: warning: 'res' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   msgb_put_u32(reply, (uint32_t) res); // XXX
+               ^
+  CC     flash/cfi_flash.o
+flash/cfi_flash.c: In function 'flash_protected':
+flash/cfi_flash.c:141:38: warning: unused parameter 'block_offset' [-Wunused-parameter]
+ static char flash_protected(uint32_t block_offset)
+                                      ^
+flash/cfi_flash.c: In function 'flash_block_unlock':
+flash/cfi_flash.c:189:6: warning: format '%x' expects argument of type 'unsigned int', but argument 2 has type 'uint32_t' [-Wformat=]
+      block_offset, base_addr + block_offset);
+      ^
+flash/cfi_flash.c:189:6: warning: format '%x' expects argument of type 'unsigned int', but argument 3 has type 'const void *' [-Wformat=]
+flash/cfi_flash.c: In function 'flash_block_lock':
+flash/cfi_flash.c:207:2: warning: format '%x' expects argument of type 'unsigned int', but argument 2 has type 'uint32_t' [-Wformat=]
+  printf("Locking block at 0x%08x\n", block_offset);
+  ^
+flash/cfi_flash.c: In function 'flash_block_lockdown':
+flash/cfi_flash.c:225:2: warning: format '%x' expects argument of type 'unsigned int', but argument 2 has type 'uint32_t' [-Wformat=]
+  printf("Locking down block at 0x%08x\n", block_offset);
+  ^
+flash/cfi_flash.c: In function 'flash_block_erase':
+flash/cfi_flash.c:247:2: warning: format '%x' expects argument of type 'unsigned int', but argument 2 has type 'uint32_t' [-Wformat=]
+  printf("Erasing block 0x%08x...", block_offset);
+  ^
+flash/cfi_flash.c: In function 'flash_program':
+flash/cfi_flash.c:317:2: warning: format '%u' expects argument of type 'unsigned int', but argument 2 has type 'uint32_t' [-Wformat=]
+  printf("Programming %u bytes to 0x%08x from 0x%p...", nbytes, dst, src);
+  ^
+flash/cfi_flash.c:317:2: warning: format '%x' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t' [-Wformat=]
+flash/cfi_flash.c:377:2: warning: format '%x' expects argument of type 'unsigned int', but argument 2 has type 'uint32_t' [-Wformat=]
+  printf(" at offset 0x%x\n", i);
+  ^
+flash/cfi_flash.c: In function 'get_query':
+flash/cfi_flash.c:406:16: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (i = 0; i < sizeof(struct cfi_query); i++) {
+                ^
+  CC     board/mediatek/uart.o
+In file included from ../../shared/libosmocore/include/osmocom/core/msgb.h:25:0,
+                 from include/comm/sercomm.h:4,
+                 from board/mediatek/uart.c:37:
+../../shared/libosmocore/include/osmocom/core/msgb.h: In function 'msgb_alloc_headroom':
+../../shared/libosmocore/include/osmocom/core/utils.h:40:51: warning: typedef 'dummyheadroom_bigger' locally defined but not used [-Wunused-local-typedefs]
+ #define osmo_static_assert(exp, name) typedef int dummy##name [(exp) ? 1 : -1];
+                                                   ^
+../../shared/libosmocore/include/osmocom/core/msgb.h:386:2: note: in expansion of macro 'osmo_static_assert'
+  osmo_static_assert(size > headroom, headroom_bigger);
+  ^
+board/mediatek/uart.c: In function 'uart_set_lcr7bit':
+board/mediatek/uart.c:113:34: warning: unused parameter 'uart' [-Wunused-parameter]
+ static void uart_set_lcr7bit(int uart, int on)
+                                  ^
+board/mediatek/uart.c: In function 'uart_set_lcr_bf':
+board/mediatek/uart.c:126:33: warning: unused parameter 'uart' [-Wunused-parameter]
+ static void uart_set_lcr_bf(int uart, int on)
+                                 ^
+board/mediatek/uart.c: In function 'uart_set_mcr6bit':
+board/mediatek/uart.c:137:34: warning: unused parameter 'uart' [-Wunused-parameter]
+ static void uart_set_mcr6bit(int uart, int on)
+                                  ^
+board/mediatek/uart.c: In function 'uart_putchar_wait':
+board/mediatek/uart.c:336:32: warning: unused parameter 'uart' [-Wunused-parameter]
+ void uart_putchar_wait(uint8_t uart, int c)
+                                ^
+board/mediatek/uart.c: In function 'uart_putchar_nb':
+board/mediatek/uart.c:345:29: warning: unused parameter 'uart' [-Wunused-parameter]
+ int uart_putchar_nb(uint8_t uart, int c)
+                             ^
+board/mediatek/uart.c: In function 'uart_getchar_nb':
+board/mediatek/uart.c:355:29: warning: unused parameter 'uart' [-Wunused-parameter]
+ int uart_getchar_nb(uint8_t uart, uint8_t *ch)
+                             ^
+board/mediatek/uart.c: In function 'uart_tx_busy':
+board/mediatek/uart.c:382:26: warning: unused parameter 'uart' [-Wunused-parameter]
+ int uart_tx_busy(uint8_t uart)
+                          ^
+  CC     board/mt62xx/init.o
+In file included from ../../shared/libosmocore/include/osmocom/core/msgb.h:25:0,
+                 from include/comm/sercomm.h:4,
+                 from board/mt62xx/init.c:37:
+../../shared/libosmocore/include/osmocom/core/msgb.h: In function 'msgb_alloc_headroom':
+../../shared/libosmocore/include/osmocom/core/utils.h:40:51: warning: typedef 'dummyheadroom_bigger' locally defined but not used [-Wunused-local-typedefs]
+ #define osmo_static_assert(exp, name) typedef int dummy##name [(exp) ? 1 : -1];
+                                                   ^
+../../shared/libosmocore/include/osmocom/core/msgb.h:386:2: note: in expansion of macro 'osmo_static_assert'
+  osmo_static_assert(size > headroom, headroom_bigger);
+  ^
+  CC     board/mediatek/start.ram.o
+  CC     board/mt62xx/loader_mtk.mtkram.manifest.o
+  CC     lib/vsprintf.o
+  CC     lib/string.o
+  CC     lib/ctype.o
+  CC     lib/printf.o
+  CC     lib/console.o
+  CC     lib/ctors.o
+lib/ctors.c: In function 'do_global_ctors':
+lib/ctors.c:6:33: warning: cast increases required alignment of target type [-Wcast-align]
+  func_ptr *func, *ctors_start = (func_ptr *) _ctors_start;
+                                 ^
+lib/ctors.c:13:25: warning: cast increases required alignment of target type [-Wcast-align]
+       *func && (func != (func_ptr *) ctors_end); func++)
+                         ^
+  CC     lib/changebit.o
+  CC     lib/clearbit.o
+  CC     lib/delay.o
+  CC     lib/div64.o
+  CC     lib/lib1funcs.o
+  CC     lib/memcpy.o
+  CC     lib/memset.o
+  CC     lib/setbit.o
+  CC     lib/testchangebit.o
+  CC     lib/testclearbit.o
+  CC     lib/testsetbit.o
+  AR     lib/libmini.a
+  CC     comm/msgb.o
+In file included from ../../shared/libosmocore/include/osmocom/core/msgb.h:25:0,
+                 from comm/msgb.c:31:
+../../shared/libosmocore/include/osmocom/core/msgb.h: In function 'msgb_alloc_headroom':
+../../shared/libosmocore/include/osmocom/core/utils.h:40:51: warning: typedef 'dummyheadroom_bigger' locally defined but not used [-Wunused-local-typedefs]
+ #define osmo_static_assert(exp, name) typedef int dummy##name [(exp) ? 1 : -1];
+                                                   ^
+../../shared/libosmocore/include/osmocom/core/msgb.h:386:2: note: in expansion of macro 'osmo_static_assert'
+  osmo_static_assert(size > headroom, headroom_bigger);
+  ^
+comm/msgb.c: In function '_talloc_zero':
+comm/msgb.c:47:26: warning: unused parameter 'ctx' [-Wunused-parameter]
+ void *_talloc_zero(void *ctx, unsigned int size, const char *name)
+                          ^
+comm/msgb.c:47:62: warning: unused parameter 'name' [-Wunused-parameter]
+ void *_talloc_zero(void *ctx, unsigned int size, const char *name)
+                                                              ^
+In file included from ../../shared/libosmocore/include/osmocom/core/msgb.h:24:0,
+                 from comm/msgb.c:31:
+comm/msgb.c: In function 'talloc_free':
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:22:9: warning: cast increases required alignment of target type [-Wcast-align]
+         (type *)( (char *)__mptr - offsetof(type, member) );})
+         ^
+comm/msgb.c:75:26: note: in expansion of macro 'container_of'
+  struct supermsg *smsg = container_of(msg, struct supermsg, msg);
+                          ^
+  CC     comm/sercomm.o
+In file included from ../../shared/libosmocore/include/osmocom/core/msgb.h:25:0,
+                 from comm/sercomm.c:27:
+../../shared/libosmocore/include/osmocom/core/msgb.h: In function 'msgb_alloc_headroom':
+../../shared/libosmocore/include/osmocom/core/utils.h:40:51: warning: typedef 'dummyheadroom_bigger' locally defined but not used [-Wunused-local-typedefs]
+ #define osmo_static_assert(exp, name) typedef int dummy##name [(exp) ? 1 : -1];
+                                                   ^
+../../shared/libosmocore/include/osmocom/core/msgb.h:386:2: note: in expansion of macro 'osmo_static_assert'
+  osmo_static_assert(size > headroom, headroom_bigger);
+  ^
+  CC     comm/sercomm_cons.o
+In file included from ../../shared/libosmocore/include/osmocom/core/msgb.h:25:0,
+                 from comm/sercomm_cons.c:32:
+../../shared/libosmocore/include/osmocom/core/msgb.h: In function 'msgb_alloc_headroom':
+../../shared/libosmocore/include/osmocom/core/utils.h:40:51: warning: typedef 'dummyheadroom_bigger' locally defined but not used [-Wunused-local-typedefs]
+ #define osmo_static_assert(exp, name) typedef int dummy##name [(exp) ? 1 : -1];
+                                                   ^
+../../shared/libosmocore/include/osmocom/core/msgb.h:386:2: note: in expansion of macro 'osmo_static_assert'
+  osmo_static_assert(size > headroom, headroom_bigger);
+  ^
+  CC     comm/timer.o
+In file included from comm/timer.c:23:0:
+comm/timer.c: In function 'osmo_timer_add':
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:22:9: warning: cast increases required alignment of target type [-Wcast-align]
+         (type *)( (char *)__mptr - offsetof(type, member) );})
+         ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:214:2: note: in expansion of macro 'container_of'
+  container_of(ptr, type, member)
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:264:13: note: in expansion of macro 'llist_entry'
+  for (pos = llist_entry((head)->next, typeof(*pos), member), \
+             ^
+comm/timer.c:50:2: note: in expansion of macro 'llist_for_each_entry'
+  llist_for_each_entry(list_timer, &timer_list, entry)
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:22:9: warning: cast increases required alignment of target type [-Wcast-align]
+         (type *)( (char *)__mptr - offsetof(type, member) );})
+         ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:214:2: note: in expansion of macro 'container_of'
+  container_of(ptr, type, member)
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:267:13: note: in expansion of macro 'llist_entry'
+       pos = llist_entry(pos->member.next, typeof(*pos), member), \
+             ^
+comm/timer.c:50:2: note: in expansion of macro 'llist_for_each_entry'
+  llist_for_each_entry(list_timer, &timer_list, entry)
+  ^
+comm/timer.c: In function 'osmo_timers_update':
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:22:9: warning: cast increases required alignment of target type [-Wcast-align]
+         (type *)( (char *)__mptr - offsetof(type, member) );})
+         ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:214:2: note: in expansion of macro 'container_of'
+  container_of(ptr, type, member)
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:264:13: note: in expansion of macro 'llist_entry'
+  for (pos = llist_entry((head)->next, typeof(*pos), member), \
+             ^
+comm/timer.c:152:2: note: in expansion of macro 'llist_for_each_entry'
+  llist_for_each_entry(timer, &timer_list, entry) {
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:22:9: warning: cast increases required alignment of target type [-Wcast-align]
+         (type *)( (char *)__mptr - offsetof(type, member) );})
+         ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:214:2: note: in expansion of macro 'container_of'
+  container_of(ptr, type, member)
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:267:13: note: in expansion of macro 'llist_entry'
+       pos = llist_entry(pos->member.next, typeof(*pos), member), \
+             ^
+comm/timer.c:152:2: note: in expansion of macro 'llist_for_each_entry'
+  llist_for_each_entry(timer, &timer_list, entry) {
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:22:9: warning: cast increases required alignment of target type [-Wcast-align]
+         (type *)( (char *)__mptr - offsetof(type, member) );})
+         ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:214:2: note: in expansion of macro 'container_of'
+  container_of(ptr, type, member)
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:264:13: note: in expansion of macro 'llist_entry'
+  for (pos = llist_entry((head)->next, typeof(*pos), member), \
+             ^
+comm/timer.c:157:2: note: in expansion of macro 'llist_for_each_entry'
+  llist_for_each_entry(timer, &timer_list, entry) {
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:22:9: warning: cast increases required alignment of target type [-Wcast-align]
+         (type *)( (char *)__mptr - offsetof(type, member) );})
+         ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:214:2: note: in expansion of macro 'container_of'
+  container_of(ptr, type, member)
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:267:13: note: in expansion of macro 'llist_entry'
+       pos = llist_entry(pos->member.next, typeof(*pos), member), \
+             ^
+comm/timer.c:157:2: note: in expansion of macro 'llist_for_each_entry'
+  llist_for_each_entry(timer, &timer_list, entry) {
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:22:9: warning: cast increases required alignment of target type [-Wcast-align]
+         (type *)( (char *)__mptr - offsetof(type, member) );})
+         ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:214:2: note: in expansion of macro 'container_of'
+  container_of(ptr, type, member)
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:305:13: note: in expansion of macro 'llist_entry'
+  for (pos = llist_entry((head)->next, typeof(*pos), member), \
+             ^
+comm/timer.c:167:2: note: in expansion of macro 'llist_for_each_entry_safe'
+  llist_for_each_entry_safe(timer, tmp, &timer_list, entry) {
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:22:9: warning: cast increases required alignment of target type [-Wcast-align]
+         (type *)( (char *)__mptr - offsetof(type, member) );})
+         ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:214:2: note: in expansion of macro 'container_of'
+  container_of(ptr, type, member)
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:306:7: note: in expansion of macro 'llist_entry'
+   n = llist_entry(pos->member.next, typeof(*pos), member); \
+       ^
+comm/timer.c:167:2: note: in expansion of macro 'llist_for_each_entry_safe'
+  llist_for_each_entry_safe(timer, tmp, &timer_list, entry) {
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:22:9: warning: cast increases required alignment of target type [-Wcast-align]
+         (type *)( (char *)__mptr - offsetof(type, member) );})
+         ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:214:2: note: in expansion of macro 'container_of'
+  container_of(ptr, type, member)
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:308:20: note: in expansion of macro 'llist_entry'
+       pos = n, n = llist_entry(n->member.next, typeof(*n), member))
+                    ^
+comm/timer.c:167:2: note: in expansion of macro 'llist_for_each_entry_safe'
+  llist_for_each_entry_safe(timer, tmp, &timer_list, entry) {
+  ^
+comm/timer.c: In function 'osmo_timers_check':
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:22:9: warning: cast increases required alignment of target type [-Wcast-align]
+         (type *)( (char *)__mptr - offsetof(type, member) );})
+         ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:214:2: note: in expansion of macro 'container_of'
+  container_of(ptr, type, member)
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:264:13: note: in expansion of macro 'llist_entry'
+  for (pos = llist_entry((head)->next, typeof(*pos), member), \
+             ^
+comm/timer.c:182:2: note: in expansion of macro 'llist_for_each_entry'
+  llist_for_each_entry(timer, &timer_list, entry) {
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:22:9: warning: cast increases required alignment of target type [-Wcast-align]
+         (type *)( (char *)__mptr - offsetof(type, member) );})
+         ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:214:2: note: in expansion of macro 'container_of'
+  container_of(ptr, type, member)
+  ^
+../../shared/libosmocore/include/osmocom/core/linuxlist.h:267:13: note: in expansion of macro 'llist_entry'
+       pos = llist_entry(pos->member.next, typeof(*pos), member), \
+             ^
+comm/timer.c:182:2: note: in expansion of macro 'llist_for_each_entry'
+  llist_for_each_entry(timer, &timer_list, entry) {
+  ^
+comm/timer.c: In function 'timer_irq':
+comm/timer.c:188:35: warning: unused parameter 'irq' [-Wunused-parameter]
+ static void timer_irq(enum irq_nr irq)
+                                   ^
+  AR     comm/libcomm.a
+  LD     board/mt62xx/loader_mtk.mtkram.elf
+  OBJ    board/mt62xx/loader_mtk.mtkram.bin
+  SIZE   board/mt62xx/loader_mtk.mtkram.size
+   text	   data	    bss	    dec	    hex	filename
+  12921	    292	  22540	  35753	   8ba9	board/mt62xx/loader_mtk.mtkram.elf
+ALL_APPS:  + board/mt62xx/loader_mtk.mtkram.elf
+root@acer:/home/nouser/mobile/osmocom-bb/src/target/firmware# 

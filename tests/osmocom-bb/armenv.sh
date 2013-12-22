@@ -13,4 +13,5 @@
 # ./osmocon -p /dev/ttyUSB0 -m mtk ./loader_mtk.mtkram.bin
 
 CROSS_COMPILE=arm-none-eabi-
-PATH=/mnt/sda2/mobile/arm-2013.11/bin:$PATH
+PATH=/home/nouser/mobile/arm-2013.11/bin:$PATH
+#PATH=/mnt/sda2/mobile/arm-2013.11/bin:$PATH
