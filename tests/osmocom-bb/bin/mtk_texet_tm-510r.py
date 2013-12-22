@@ -189,34 +189,41 @@ def process_device_event(device):
     print_device_event(device)
     #formatted_listing(current_devices)
 
-context = pyudev.Context()
-#monitor = pyudev.Monitor.from_netlink(context)
-#observer = pyudev.MonitorObserver(monitor, callback=process_device_event, name='monitor-observer')
-#observer.daemon = False
-#observer.start()
-#exit()
+def start_observer():
+    context = pyudev.Context()
+    monitor = pyudev.Monitor.from_netlink(context)
+    observer = pyudev.MonitorObserver(monitor, callback=process_device_event, name='monitor-observer')
+    observer.daemon = False
+    observer.start()
+    #exit()
 
-monitor = pyudev.Monitor.from_netlink(context)
-#monitor.filter_by('block')
-monitor.filter_by('tty')
-monitor.start()
-for device in iter(monitor.poll, None):
-    if device.subsystem == 'tty' and device.action == 'add' and device['ID_MODEL'] == 'MT6235':
-	#      (device['ID_USB_DRIVER'] == 'qcaux' or device['ID_MODEL'] == 'MT6235'):
-	print 'tty: ' + device['DEVNAME']
-	ser_port = device['DEVNAME']
-	break
+def run_monitor():
+    context = pyudev.Context()
+    monitor = pyudev.Monitor.from_netlink(context)
+    #monitor.filter_by('block')
+    monitor.filter_by('tty')
+    monitor.start()
+    for device in iter(monitor.poll, None):
+        if device.subsystem == 'tty' and device.action == 'add' and device['ID_MODEL'] == 'MT6235':
+	    #      (device['ID_USB_DRIVER'] == 'qcaux' or device['ID_MODEL'] == 'MT6235'):
+	    print 'tty: ' + device['DEVNAME']
+	    ser_port = device['DEVNAME']
+	    #break
 
-from subprocess import call
-##call(["ls", "-l"])
-##call(["./osmocon", "-p /dev/ttyUSB0 -m mtk ./loader_mtk.mtkram.bin"])
-args = "-p " + str(ser_port) + " -m mtk ./loader_mtk.mtkram.bin"
-print "./osmocon " + args
-import time
-#time.sleep(1)
-import os
-os.chmod(ser_port, 666)
-call(["strace", "./osmocon", "-p", str(ser_port), "-m", "mtk", "./loader_mtk.mtkram.bin"])
+def hiao():
+    from subprocess import call
+    ##call(["ls", "-l"])
+    ##call(["./osmocon", "-p /dev/ttyUSB0 -m mtk ./loader_mtk.mtkram.bin"])
+    args = "-p " + str(ser_port) + " -m mtk ./loader_mtk.mtkram.bin"
+    print "./osmocon " + args
+    import time
+    #time.sleep(1)
+    import os
+    os.chmod(ser_port, 666)
+    #call(["strace", "./osmocon", "-p", str(ser_port), "-m", "mtk", "./loader_mtk.mtkram.bin"])
+    call(["./osmocon", "-p", str(ser_port), "-m", "mtk", "./loader_mtk.mtkram.bin"])
+
+run_monitor()
 exit()
 
 #--------------------------------------------------------------------
