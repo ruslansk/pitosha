@@ -1,0 +1,38 @@
+root@acer:/home/nouser/mobile/osmocom-bb/src/target/firmware# make -f Makefile.mtk
+  CC     apps/loader_mtk/main.o
+  CC     flash/cfi_flash.o
+  CC     board/mediatek/uart.o
+  CC     board/mt62xx/init.o
+  CC     board/mediatek/start.ram.o
+  CC     board/mt62xx/loader_mtk.mtkram.manifest.o
+  CC     lib/vsprintf.o
+  CC     lib/string.o
+  CC     lib/ctype.o
+  CC     lib/printf.o
+  CC     lib/console.o
+  CC     lib/ctors.o
+  CC     lib/changebit.o
+  CC     lib/clearbit.o
+  CC     lib/delay.o
+  CC     lib/div64.o
+  CC     lib/lib1funcs.o
+  CC     lib/memcpy.o
+  CC     lib/memset.o
+  CC     lib/setbit.o
+  CC     lib/testchangebit.o
+  CC     lib/testclearbit.o
+  CC     lib/testsetbit.o
+  AR     lib/libmini.a
+  CC     comm/msgb.o
+  CC     comm/sercomm.o
+  CC     comm/sercomm_cons.o
+  CC     comm/timer.o
+  AR     comm/libcomm.a
+  LD     board/mt62xx/loader_mtk.mtkram.elf
+  OBJ    board/mt62xx/loader_mtk.mtkram.bin
+  SIZE   board/mt62xx/loader_mtk.mtkram.size
+   text	   data	    bss	    dec	    hex	filename
+  12921	    292	  22540	  35753	   8ba9	board/mt62xx/loader_mtk.mtkram.elf
+ALL_APPS:  + board/mt62xx/loader_mtk.mtkram.elf
+
+root@acer:/home/nouser/mobile/osmocom-bb/src/target/firmware#
