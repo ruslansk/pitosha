@@ -9,12 +9,9 @@ import signal
 import sys
 def signal_handler(signal, frame):
     print '\nYou pressed Ctrl+C!'
-    print "Swift_Finalize"
-    if s > 9:
-	print "OneNAND terminator"
-	serialPost(ser, "F7".decode("hex"))
-	print "SWIFT D/L terminator"
-	serialPost(ser, "FD".decode("hex"))
+    print "MTK_Finalize"
+    if s > 18:
+	serialPost(ser, "B7".decode("hex"))
 	time.sleep(0.1)
     if ser.isOpen(): ser.close()
     sys.exit(0)
