@@ -1,0 +1,22 @@
+MonitoringWindowsUsb
+http://wiki.wxpython.org/MonitoringWindowsUsb
+
+Detect Device Insertion
+Python Stuff > Win32 How Do I...? > Detect Device Insertion
+http://timgolden.me.uk/python/win32_how_do_i/detect-device-insertion.html
+
+Detect inserted USB on Windows
+http://stackoverflow.com/questions/4273252/detect-inserted-usb-on-windows
+
+USB Deivce detection
+http://www.mofeel.net/958-microsoft-public-vc-mfc/34639.aspx
+
+usb port insert/remove event detection
+http://www.mofeel.net/73-microsoft-public-dotnet-languages-csharp/41248.aspx
+
+
+http://pyudev.readthedocs.org/en/latest/
+
+http://www.lfd.uci.edu/~gohlke/pythonlibs/
+http://www.lfd.uci.edu/~gohlke/pythonlibs/b82ygp6u/pywin32-218.4.win-amd64-py2.7.exe
+http://www.lfd.uci.edu/~gohlke/pythonlibs/b82ygp6u/pyzmq-14.0.1.win-amd64-py2.7.exe
