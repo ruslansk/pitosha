@@ -230,8 +230,9 @@ def hiao():
 #run_monitor(False)
 #exit()
 
-run_monitor() # isBreakable = True  - is default
+#run_monitor() # isBreakable = True  - is default
 #run_monitor(False) # isBreakable = True  - is default
+ser_port = "/dev/ttyUSB0"
 print ser_port
 
 #--------------------------------------------------------------------
