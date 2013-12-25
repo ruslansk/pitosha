@@ -205,8 +205,11 @@ def run_monitor(isBreakable=True):
     monitor.filter_by('tty')
     monitor.start()
     for device in iter(monitor.poll, None):
+        #print(list(device.items()))
         #if device.subsystem == 'tty' and device.action == 'add' and device['ID_MODEL'] == 'MT6235':
+        #if device.subsystem == 'tty' and device.action == 'add' and device['ID_USB_DRIVER'] == 'qcaux':
         if device.subsystem == 'tty' and device.action == 'add' and device['ID_USB_DRIVER'] == 'qcaux':
+	    print(list(device.items()))
 	    print 'tty: ' + device['DEVNAME']
 	    ser_port = device['DEVNAME']
 	    if isBreakable: break
@@ -228,6 +231,7 @@ def hiao():
 #exit()
 
 run_monitor() # isBreakable = True  - is default
+#run_monitor(False) # isBreakable = True  - is default
 print ser_port
 
 #--------------------------------------------------------------------
@@ -310,6 +314,10 @@ def swapSerialData(data):
     return data
 
 print "module PySerial version: " + serial.VERSION
+
+import subprocess
+subprocess.call(['statserial', ser_port])
+subprocess.call(['setserial',  '-G', ser_port])
 
 # http://www.roman10.net/serial-port-communication-in-python/
 # initialization and open the port
@@ -439,18 +447,20 @@ if ser.isOpen():
 	      #	serialPostL(ser, ldr1_c + loader1[ldr1_i4:ldr1_l ], ldr1_l, ldr1_l )
 	      #ldr1_i += 1
 	    elif s == 7:
+	      s = s
+	    elif s == 8:
 	      # -> 00 00 00 01  - byte is read
 	      # -> XX XX        - byte: 
 	      serialPost(ser, "A2".decode("hex"))
 	      #if data[l-1] == chr(0x4f):
 	      #	serialPost(ser, "530000000c".decode("hex"))
-	    elif s == 8:
+	    elif s == 9:
 	      # -> A2
 	      # 80 01 00 08 - Hardware Code Register
 	      serialPost(ser, "80010008".decode("hex"))
 	      #if data[l-1] == chr(0x4f):
 	      #	serialPost(ser, "4a".decode("hex"))
-	    elif s == 9:
+	    elif s == 10:
 	      # -> 80 01 00 08
 	      serialPost(ser, "00000001".decode("hex"))
 	      #s = 20;
@@ -473,38 +483,38 @@ if ser.isOpen():
 	      #	ser.flushInput()   # flush input buffer, discarding all its contents
 	      #	ser.flushOutput()  # flush output buffer, aborting current output
 	      #	serialPost(ser, "d9".decode("hex"))
-	    elif s == 10:
-		s = s
 	    elif s == 11:
+		s = s
+	    elif s == 12:
 		# -> 00 00 00 01
 		# -> XX XX        - we hawe a MediaTek MT6253
 		serialPost(ser, "A2".decode("hex"))
-	    elif s == 12:
+	    elif s == 13:
 		# -> A2
 		# 80 01 00 04  - Software Version Register
 		serialPost(ser, "80010004".decode("hex"))
-	    elif s == 13:
+	    elif s == 14:
 		# -> 80 01 00 04
 		serialPost(ser, "00000001".decode("hex"))
-	    elif s == 14:
-		s = s
 	    elif s == 15:
+		s = s
+	    elif s == 16:
 		# -> 00 00 00 01
 		# -> XX XX        - 
 		# A1  - write to register
 		serialPost(ser, "A1".decode("hex"))
-	    elif s == 16:
+	    elif s == 17:
 		# -> A1        - write command ack
 		# 80 03 00 00  - Reset Generation Unit (RGU): Watchdog Timer Control Register
 		serialPost(ser, "80030000".decode("hex"))
-	    elif s == 17:
+	    elif s == 18:
 		# -> 80 03 00 00
 		serialPost(ser, "00000001".decode("hex"))
-	    elif s == 18:
+	    elif s == 19:
 		# -> 00 00 00 01
 		# -> XX XX        - 
 		s -= 1
-	    elif s == 19:
+	    elif s == 20:
 		s -= 1
 	    elif s == 111:
 		data   = "d4".decode("hex")
