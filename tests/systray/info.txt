@@ -1,0 +1,9 @@
+http://stackoverflow.com/questions/15921203/how-to-create-a-system-tray-popup-message-with-python-windows
+
+http://stackoverflow.com/questions/6389580/quick-and-easy-trayicon-with-python
+http://eurion.net/python-snippets/snippet/Systray%20icon.html
+http://stackoverflow.com/questions/893984/pyqt-show-menu-in-a-system-tray-application
+https://code.google.com/p/pysystray/
+http://sourceforge.net/projects/pysystray/
+https://github.com/praz88/pysystray
+http://essiene.blogspot.ru/2005/10/pysystray-progress-lessons-learned-so.html
