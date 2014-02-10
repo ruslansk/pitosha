@@ -1,0 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+print "Content-Type: text/html\n"
+print "<html><head><title>Books</title></head>"
+print "<body>"
+print "<h1>Booooooks</h1>"
+print "<ul>"
+print "<li>aaa</li>"
+print "<li>bbb</li>"
+print "</ul>"
+print "</body></html>"

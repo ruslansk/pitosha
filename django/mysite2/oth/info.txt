@@ -1,0 +1,8 @@
+for example cgi-scripting, copy "tesst" -> to "/usr/lib/cgi-bin"
+and go: http://localhost/cgi-bin/tesst
+
+See https://www.youtube.com/watch?v=O4zNUCFtfdY&list=PLEsfXFp6DpzRgedo9IzmcpXYoSeDg29Tx
+for video education in english django
+
+https://www.youtube.com/watch?v=l4ch3TFINMY&list=PLuZJ9n46uMzUTlpOt5EiuFdL3NADjS5EP
+https://www.youtube.com/watch?v=qMmI8qigObc
