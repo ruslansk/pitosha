@@ -1,0 +1,20 @@
+[gammu]
+port = 00:AA:70:1E:08:B3
+connection = atblue
+name = MTK1 MTK2
+synchronizetime = no
+logformat = nothing
+[gammu1]
+port=00:AA:70:1E:08:B3
+connection=bluerfobex
+name=MTK1 MTK2
+model=
+[gammu2]
+port=00:17:D5:98:4A:EE
+connection=blueat
+name=Samsung unknown
+[gammu3]
+port=E8:92:A4:04:99:4A
+connection=blueat
+name=MTKa
+

@@ -1,0 +1,91 @@
+Window 1
+
+   QEMU - Emulating Raspberry Pi the easy way (Linux or Windows!)
+   http://xecdesign.com/qemu-emulating-raspberry-pi-the-easy-way/
+
+   QEMU - Compiling for ARM (1176) emulation
+   http://xecdesign.com/compiling-qemu/
+
+   Raspberry Pi • View topic - HOWTO: Virtual Raspbian on Qemu in Ubuntu Linux 12.10
+   http://www.raspberrypi.org/phpBB3/viewtopic.php?f=29&t=37386
+
+   404 Not Found
+   http://192.168.0.117/infa/dw/doku.php?id=heap:history:to_date:2013:12:09:2013-12-27_00-16_a
+
+   Bioinformatics Algorithms (Part 1) | Coursera
+   https://www.coursera.org/course/bioinformatics?from_restricted_preview=1&course_id=970636&r=https%3A%2F%2Fclass.coursera.org%2Fbioinformatics-001%2Flecture%2F69
+
+   heatxsink.com - How to pair a bluetooth device from command line on Linux
+   http://www.heatxsink.com/entry/how-to-pair-a-bluetooth-device-from-command-line-on-linux
+
+   bluetooth.btcommon.BluetoothError 104 Connection reset by peer - Поиск в Google
+   https://www.google.ru/search?q=bluetooth.btcommon.BluetoothError+104+Connection+reset+by+peer&oq=bluetooth.btcommon.BluetoothError+104+Connection+reset+by+peer&aqs=chrome..69i57.10560j0&sourceid=chrome&ie=UTF-8
+
+   Bluetooth device 'Connection reset by peer' when attempting to pair via python - Stack Overflow
+   http://stackoverflow.com/questions/19352519/bluetooth-device-connection-reset-by-peer-when-attempting-to-pair-via-python
+
+   rfcomm-client.py and rfcomm-server.py not working as expected – Группы Google
+   https://groups.google.com/forum/#!topic/pybluez/_tX2kyNz4Wg
+
+   Can't connect RFCOMM socket: Connection reset by peer - Bluetooth - FedoraForum.org
+   http://forums.fedoraforum.org/showthread.php?t=119597
+
+   Get single keypress « Python recipes « ActiveState Code
+   http://code.activestate.com/recipes/577977-get-single-keypress/
+
+   getch()-like unbuffered character reading from stdin on both Windows and Unix « Python recipes « ActiveState Code
+   http://code.activestate.com/recipes/134892-getch-like-unbuffered-character-reading-from-stdin/
+
+   Craftsman Hambs: Getch in Python - Read a Character without Enter
+   http://craftsman-hambs.blogspot.ru/2009/11/getch-in-python-read-character-without.html
+
+   putchar(8)
+   http://www.velocityreviews.com/forums/t701810-putchar-8-a.html
+
+   input - Python read a single character from the user - Stack Overflow
+   http://stackoverflow.com/questions/510357/python-read-a-single-character-from-the-user
+
+   user input - raw_input in python without pressing enter - Stack Overflow
+   http://stackoverflow.com/questions/3523174/raw-input-in-python-without-pressing-enter
+
+   life is short - you need Python!: getch() in Python - get a single character from keyboard
+   http://love-python.blogspot.ru/2010/03/getch-in-python-get-single-character.html
+
+   Oops! Google Chrome could not connect to pyfaq.infogami.com
+   http://pyfaq.infogami.com/how-do-i-check-for-a-keypress-without-blocking
+
+   Online SMS-DELIVER PDU Decoder
+   http://www.diafaan.com/sms-tutorials/gsm-modem-tutorial/online-sms-deliver-pdu-decoder/
+
+   Online SMS-SUBMIT PDU Decoder
+   http://www.diafaan.com/sms-tutorials/gsm-modem-tutorial/online-sms-submit-pdu-decoder/
+
+   online sms-submit pdu decoder - Поиск в Google
+   https://www.google.ru/search?q=SMS-SUBMIT+PDU&oq=SMS-SUBMIT+PDU&aqs=chrome..69i57&sourceid=chrome&ie=UTF-8#newwindow=1&q=online+sms-submit+pdu+decoder
+
+   JavaScript PDU Mode SMS Decoder
+   http://smspdu.benjaminerhart.com/
+
+   smspdu.com : Online SMS PDU Decoder/Converter
+   http://www.smspdu.net/
+
+   SMS PDU Decode example | Tetrax Technology
+   http://tetraxtech.wordpress.com/2009/11/26/sms-pdu-decode-example/
+
+   at command read sms from sim - Поиск в Google
+   https://www.google.ru/search?q=at+command+read+sms+from+sim&oq=at+command+read+sms+from&aqs=chrome.1.69i57j0l3.18542j0&sourceid=chrome&ie=UTF-8
+
+   SMS Tutorial: Preferred Message Storage (AT+CPMS)
+   http://www.developershome.com/sms/cpmsCommand.asp
+
+   AT+CPMS - Поиск в Google
+   https://www.google.ru/search?q=AT%2BCPMS&oq=AT%2BCPMS&aqs=chrome..69i57&sourceid=chrome&ie=UTF-8
+
+   Заметки разработчика - Извлечение SMS средствами perl
+   http://www.shaplov.ru/devel-notes/sms/
+
+   Получение и декодирование SMS-сообщений в формате PDU | Хард и Софт
+   http://hardisoft.ru/soft/poluchenie-i-dekodirovanie-sms-soobshhenij-v-formate-pdu/
+
+   Tutorial: Send And Receive SMS Using GSM Modem
+   http://www.testech-elect.com/enfora/tutorial_send_receive_sms_using_gsm_modem.htm
