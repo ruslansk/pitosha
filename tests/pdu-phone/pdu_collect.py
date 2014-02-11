@@ -1,6 +1,32 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+#import pdtool
+#import pdtool.dbsqc as sqtool
+#from pdtool import dbsqc as sqtool
+
+import bluetooth
+import serial
+import time
+
+sockfd = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+#sockfd.connect(('E8:92:A4:04:99:4A', 9))               # BT Адрес и номер канала
+sockfd.connect(('00:AA:70:1E:08:B3', 9))
+
+#sockfd.send('AT+CMGF=1\r')                            #
+#sockfd.send('AT+CMGF=0\r')                             #
+sockfd.send('AT+CPMS=?\r')
+#sockfd.send('AT+CPMS?\r')
+time.sleep(1)
+print sockfd.recv(1024)
+
+sockfd.send(chr(26))                                   # CTRL+Z
+sockfd.close()
+
+exit()
+
+#################################################################################
+
 import bluetooth
 import serial
 import time
@@ -18,9 +44,16 @@ sockfd.connect(('00:AA:70:1E:08:B3', 9))
 #exit()
 
 #sockfd.send('AT+CMGF=1\r')                            #
-sockfd.send('AT+CMGF=0\r')                             #
+#sockfd.send('AT+CMGF=0\r')                             #
+
+#sockfd.send('AT+CPMS=?\r')
+#sockfd.send('AT+CPMS?\r')
+sockfd.send('AT+CPMS="SM_P"\r')
 time.sleep(1)
 print sockfd.recv(1024)
+#sockfd.send(chr(26))                                   # CTRL+Z
+#sockfd.close()
+#exit()
 
 sockfd.send('AT+CMGL=4\r')
 #sockfd.send('AT+CMGR=2\r')
@@ -29,7 +62,7 @@ sockfd.send('AT+CMGL=4\r')
 #sockfd.send('AT+CMGR=4\r')
 
 #sockfd.send('AT+CUSD=1,"*105#"\r')                    #
-time.sleep(2)
+time.sleep(1)
 #print sockfd.recv(1024)
 #print sockfd.recv(1024)
 #print sockfd.recv(2048)

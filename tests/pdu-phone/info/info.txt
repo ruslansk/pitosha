@@ -1,0 +1,23 @@
+gammu -c ./gammi backupsms ./1.bkp
+
+https://github.com/codasus/django-sqlcipher
+
+https://code.launchpad.net/~jplacerda/+junk/python-sqlcipher
+
+http://stackoverflow.com/questions/986403/encrypted-file-or-db-in-python
+
+http://sqlcipher.net/
+
+Python Encryption Examples
+http://www.example-code.com/python/encryption.asp
+
+https://github.com/isislovecruft/pysqlcipher
+
+!!! https://github.com/andrejb/pysqlcipher
+
+http://sqlcipher.net/sqlcipher-api/
+
+http://zetcode.com/db/sqlitepythontutorial/
+http://proft.me/2009/05/21/python-i-baza-dannyh-sqlite/
+http://python.su/forum/topic/3526/?page=1#post-22748
+http://stackoverflow.com/questions/5801170/python-sqlite-create-table-if-not-exists-problem

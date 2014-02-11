@@ -1,0 +1,23 @@
+user@prog:~/projects/p/pitosha/tests/pdu-phone$ ./pdu_collect.py 
+AT+CPMS=?
++CPMS: ("SM", "ME", "SM_P", "ME_P", "MT"), ("SM", "ME", "SM_P", "ME_P", "MT"), ("SM", "ME", "SM_P", "ME_P", "MT")
+
+OK
+
+user@prog:~/projects/p/pitosha/tests/pdu-phone$ ./pdu_collect.py 
+AT+CPMS?
++CPMS: "SM_P", 20, 20, "ME", 58, 500, "SM_P", 20, 20
+
+OK
+
+user@prog:~/projects/p/pitosha/tests/pdu-phone$ ./pdu_collect.py 
+AT+CPMS?
++CPMS: "ME", 468, 500, "ME", 468, 500, "SM_P", 0, 15
+
+OK
+
+user@prog:~/projects/p/pitosha/tests/pdu-phone$ ./pdu_collect.py 
+AT+CPMS=?
++CPMS: ("SM", "ME", "SM_P", "ME_P", "MT"), ("SM", "ME", "SM_P", "ME_P", "MT"), ("SM", "ME", "SM_P", "ME_P", "MT")
+
+OK

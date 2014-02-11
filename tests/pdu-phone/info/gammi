@@ -1,0 +1,6 @@
+[gammu]
+port=E8:92:A4:04:99:4A
+connection=blueat
+name=MTKa
+synchronizetime = no
+logformat = nothing
