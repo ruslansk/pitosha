@@ -9,12 +9,30 @@ import bluetooth
 import serial
 import time
 
-sockfd = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-#sockfd.connect(('E8:92:A4:04:99:4A', 9))               # BT Адрес и номер канала
-sockfd.connect(('00:AA:70:1E:08:B3', 9))
+#def spyder_getpass(prompt='Password: '):
+#  set_spyder_echo(False)
+#  password = raw_input(prompt)
+#  set_spyder_echo(True)
+#  return password
+#
+#print "Oops! Ha-ha! :) Your password is: " + spyder_getpass()
 
-#sockfd.send('AT+CMGF=1\r')                            #
-#sockfd.send('AT+CMGF=0\r')                             #
+import getpass
+import sys
+
+ppp = getpass.getpass(stream=sys.stderr,              # где ты была сегодня киска?
+                      prompt='Wath? ')
+# warning: for set bluetooth PIN use command:
+#   $> bluetooth-agent 0000 &
+mac = 'E8:92:A4:04:99:4A'                             # bt-адрес mtk_first
+mac = '00:AA:70:1E:08:B3'                             # bt-адрес mtk_second
+chn = 9                                               # канал DUN-интерфейса (для mtk)
+
+sockfd = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+sockfd.connect((mac, chn))                            # BT Адрес и номер канала
+
+#sockfd.send('AT+CMGF=1\r')
+#sockfd.send('AT+CMGF=0\r')
 sockfd.send('AT+CPMS=?\r')
 #sockfd.send('AT+CPMS?\r')
 time.sleep(1)
