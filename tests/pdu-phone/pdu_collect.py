@@ -1,6 +1,62 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
+from pdtool import fixes
+
+import cmd
+
+class PduToolCmd(cmd.Cmd):
+    """Simple command processor example."""
+
+    prompt = 'pdutool#: '
+    intro  = "Добро пожаловать в сборщик PDU :)\n"\
+             "Для справки по доступным командам наберите: help\n"
+
+    #def preloop(self):
+    #    #print 'Welcome to DPU collector :)'
+    #    print 'Добро пожаловать в сборщик PDU :)'
+    #    print ''
+    
+    def do_greet(self, person):
+        if person:
+            print "hello,", person
+        else:
+            print 'hello'
+    def help_greet(self):
+        print '\n'.join([ 'greet [person]',
+                          'Greet the named person',
+                        ])
+    
+    def do_EOF(self, line):   # Ctrl-D, ^D$
+        return True
+    def do_exit(self, line):
+        return True
+    def do_e(self, line):
+        return True
+    def do_quit(self, line):
+        return True
+    def do_q(self, line):
+        return True
+
+    def postloop(self):
+        #print "Bye!"
+        print ''
+        print 'Пока-пока!'
+
+if __name__ == '__main__':
+    PduToolCmd().cmdloop()
+
+#while True:
+#    sys.stdout.write("any? (Y/n): ")
+#    c = fixes.getch()
+#    print ""
+#    #c = raw_input('Press y to continue, or n to exit: ')
+#    if c.upper() == 'N': break
+
+exit()
+##########################################################
+
 #import pdtool
 #import pdtool.dbsqc as sqtool
 #from pdtool import dbsqc as sqtool
