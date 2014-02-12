@@ -8,13 +8,18 @@
 ##  '3.7.14.1'
 
 import sys
+import getpass
 import pysqlcipher.dbapi2 as sqc3
 print "lib ver.: " + sqc3.version
 print "sql ver.: " + sqc3.sqlite_version
 
 conn=sqc3.connect('bdata.db')
 cur = conn.cursor()
-cur.execute("PRAGMA key='123'")
+ppp = getpass.getpass(stream=sys.stderr,              # где ты была сегодня киска?
+                      prompt='Wath? ')
+cur.execute("PRAGMA key='" + ppp + "'")
+ppp = 'ihlwgkjglbo47r2498rt234807ryiwhfgsdfkgaskegf'
+
 #c.execute('select * from info')
 #
 #for row in c:
@@ -46,23 +51,23 @@ def selectAll():
     global conn, cur
     cur.execute('SELECT * FROM pdu_data')
     for row in cur:
-        print '-'*10
+        print '-'*70
         print '     ID: ', row[0]
         print 'DevName: ', row[1]
         print 'DateAdd: ', row[2]
         print 'PduBlob: ', row[3]
-        print '-'*10
+    print '-'*70
 
 def selectOne(idx):
     global conn, cur
     cur.execute('SELECT * FROM pdu_data pd WHERE pd.id=' + str(idx))
     for row in cur:
-        print '-'*10
+        print '-'*70
         print '     ID: ', row[0]
         print 'DevName: ', row[1]
         print 'DateAdd: ', row[2]
         print 'PduBlob: ', row[3]
-        print '-'*10
+    print '-'*70
 
 def insert_to_table(table_name, num):
     global conn, cur
@@ -78,6 +83,7 @@ def select_from_table(table_name):
 
 #########
 
+'''
 try:
     cur.execute('SELECT SQLITE_VERSION()')
     data = cur.fetchone()
@@ -215,3 +221,4 @@ sockfd.close()
 #print sockfd.recv(1024)
 #sockfd.send(chr(26))                                   # CTRL+Z
 #sockfd.close()
+'''

@@ -87,6 +87,36 @@ def st_setME():
     sockfd.send(chr(26))                                  # CTRL+Z
     sockfd.close()
 
+def st_readOneFromSM(idx):
+    sockfd = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+    sockfd.connect((mac, chn))                            # BT Адрес и номер канала
+    
+    sockfd.send('AT+CPMS="SM_P"\r')                       # выбор хранилища SIM
+    time.sleep(1)
+    print sockfd.recv(1024)
+
+    sockfd.send('AT+CMGR=' + str(idx) + '\r')             # чтение sms по индексу
+    time.sleep(1)
+    print sockfd.recv(1024)
+
+    sockfd.send(chr(26))                                  # CTRL+Z
+    sockfd.close()
+
+def st_readOneFromME(idx):
+    sockfd = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+    sockfd.connect((mac, chn))                            # BT Адрес и номер канала
+    
+    sockfd.send('AT+CPMS="ME"\r')                         # выбор хранилища в памяти телефона
+    time.sleep(1)
+    print sockfd.recv(1024)
+
+    sockfd.send('AT+CMGR=' + str(idx) + '\r')             # чтение sms по индексу
+    time.sleep(1)
+    print sockfd.recv(1024)
+
+    sockfd.send(chr(26))                                  # CTRL+Z
+    sockfd.close()
+
 #################################################################################
 
 '''

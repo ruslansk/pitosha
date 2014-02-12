@@ -13,7 +13,10 @@ class PduToolCmd(cmd.Cmd):
     """Simple command processor example."""
 
     FRIENDS  = [ 'Alice', 'Adam', 'Barbara', 'Bob' ]
-    stor_cmd = [ 'priority', 'counts', 'setSM', 'setME' ]
+    stor_cmd = [ 'priority', 'counts', 'setSM', 'setME', 'readOneSM', 'readOneME' ]
+    base_cmd = [ 'open', 'create', 'insert', 'select', 'sql', 'close' ]
+    base_idx = None
+    base_dbs = None
 
     prompt = 'pdutool#: '
     intro  = "Добро пожаловать в сборщик PDU :)\n"\
@@ -32,6 +35,10 @@ class PduToolCmd(cmd.Cmd):
               storage setSM    - установка SIM как текущего хранилища sms
               storage setME    - установка памяти телефона как текущего хранилища sms
         '''
+        st_cmd_s = st_cmd.split(' ')
+        st_cmd   = st_cmd_s[0]
+        st_sub   = ''
+        if len(st_cmd_s) > 1: st_sub = st_cmd_s[1]
         if st_cmd and st_cmd in self.stor_cmd:
             st_res = "Success"
             if   st_cmd == self.stor_cmd[0]:   # priority
@@ -49,11 +56,23 @@ class PduToolCmd(cmd.Cmd):
                 #if is_changed(ats): ats = reload(ats)
                 reload(ats)
                 ats.st_setSM()
-            else:                              # setME
+            elif st_cmd == self.stor_cmd[3]:   # setME
                 from pdtool import atsend as ats
                 #if is_changed(ats): ats = reload(ats)
                 reload(ats)
                 ats.st_setME()
+            elif st_cmd == self.stor_cmd[4]:   # readOneSM
+                from pdtool import atsend as ats
+                #if is_changed(ats): ats = reload(ats)
+                reload(ats)
+                if st_sub:
+                    ats.st_readOneFromSM(st_sub)
+            else:                                 # readOneME
+                from pdtool import atsend as ats
+                #if is_changed(ats): ats = reload(ats)
+                reload(ats)
+                if st_sub:
+                    ats.st_readOneFromME(st_sub)
         elif st_cmd:
             st_res = "Unknown storage command"
         else:
@@ -68,7 +87,59 @@ class PduToolCmd(cmd.Cmd):
                             if f.startswith(text)
                           ]
         return completions
-    
+
+    def do_base(self, db_cmd):
+        '''
+          работа с base
+              base open        -
+              base sql         -
+              base close       -
+        '''
+        db_cmd_s = db_cmd.split(' ')
+        db_cmd   = db_cmd_s[0]
+        db_sub   = ''
+        if len(db_cmd_s) > 1: db_sub = db_cmd_s[1]
+        if db_cmd and db_cmd in self.base_cmd:
+            db_res = "Success"
+            if   db_cmd == self.base_cmd[0]:   # open
+                from pdtool import dbsqc as dbs
+                ##if is_changed(dbs): dbs = reload(dbs)
+                #reload(dbs)
+                if self.base_idx is True: reload(dbs)
+                self.base_dbs = dbs
+                self.base_idx = True
+            elif db_cmd == self.base_cmd[1]:   # create
+                #if is_changed(dbs): dbs = reload(dbs)
+                self.base_dbs.createT()
+            elif db_cmd == self.base_cmd[2]:   # insert
+                #if is_changed(dbs): dbs = reload(dbs)
+                self.base_dbs.insertT('devName', 'dateAdd', 'pduBlob')
+            elif db_cmd == self.base_cmd[3]:   # select
+                #if is_changed(dbs): dbs = reload(dbs)
+                self.base_dbs.selectAll()
+            elif db_cmd == self.base_cmd[4]:   # sql
+                #if is_changed(dbs): dbs = reload(dbs)
+                a = 1
+            else:                              # close
+                #from pdtool import dbsqc as dbs
+                ##if is_changed(dbs): dbs = reload(dbs)
+                #reload(dbs)
+                self.base_idx = False
+        elif db_cmd:
+            db_res = "Unknown storage command"
+        else:
+            db_res = 'Enter storage command'
+        print db_res
+    def complete_base(self, text, line, begidx, endidx):
+        if not text:
+            completions = self.stor_cmd[:]
+        else:
+            completions = [ f
+                            for f in self.base_cmd
+                            if f.startswith(text)
+                          ]
+        return completions
+		
     def do_greet(self, person):
         if person and person in self.FRIENDS:
             greeting = 'hi, %s!' % person

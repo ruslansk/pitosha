@@ -1,0 +1,20 @@
+down from  http://slproweb.com/products/Win32OpenSSL.html
+             http://slproweb.com/download/Win32OpenSSL-1_0_1f.exe
+             http://slproweb.com/download/Win64OpenSSL-1_0_1f.exe
+
+install
+
+git clone https://github.com/isislovecruft/pysqlcipher
+
+in amalgamation\sqlite.c:   inline  replase to __inline
+
+copy to  \pysqlcipher\amalgamation\ <- \OpenSSL-Win32\include\*    (openssl in amalgamation)
+
+copy to  \pysqlcipher\amalgamation\ <- ssleay32MT.lib
+copy to  \pysqlcipher\amalgamation\ <- libeay32MT.lib
+
+copy to  \pysqlcipher\ <- setup.py
+
+install from http://www.lfd.uci.edu/~gohlke/pythonlibs/
+               http://www.lfd.uci.edu/~gohlke/pythonlibs/gutyeufo/PyBluez-0.19.win32-py2.7.exe
+               http://www.lfd.uci.edu/~gohlke/pythonlibs/gutyeufo/PyBluez-0.19.win-amd64-py2.7.exe
