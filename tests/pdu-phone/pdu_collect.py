@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from pdtool import fixes
+import pdtool.fixes as fixes
 
 import cmd
 
@@ -27,6 +27,13 @@ class PduToolCmd(cmd.Cmd):
         print '\n'.join([ 'greet [person]',
                           'Greet the named person',
                         ])
+                        
+    def do_cmps(self, line):
+        "  cmps - get CMPS"
+        from pdtool import atsend as ats
+        #if is_changed(ats): ats = reload(ats)
+        reload(ats)
+        ats.getCMPS()
     
     def do_EOF(self, line):   # Ctrl-D, ^D$
         return True
@@ -37,6 +44,7 @@ class PduToolCmd(cmd.Cmd):
     def do_quit(self, line):
         return True
     def do_q(self, line):
+        "  q, quit, e, exit - Выход из программы\n"
         return True
 
     def postloop(self):
