@@ -4,10 +4,16 @@
 import sys
 import pdtool.fixes as fixes
 
+# warning: for set bluetooth PIN use command:
+#   $> bluetooth-agent 0000 &
+
 import cmd
 
 class PduToolCmd(cmd.Cmd):
     """Simple command processor example."""
+
+    FRIENDS  = [ 'Alice', 'Adam', 'Barbara', 'Bob' ]
+    stor_cmd = [ 'priority', 'counts', 'setSM', 'setME' ]
 
     prompt = 'pdutool#: '
     intro  = "Добро пожаловать в сборщик PDU :)\n"\
@@ -17,17 +23,74 @@ class PduToolCmd(cmd.Cmd):
     #    #print 'Welcome to DPU collector :)'
     #    print 'Добро пожаловать в сборщик PDU :)'
     #    print ''
+
+    def do_storage(self, st_cmd):
+        '''
+          работа с системой хранения sms
+              storage priority - показ приоритета чтения sms из хранилищ
+              storage counts   - показ количества sms в хранилищах
+              storage setSM    - установка SIM как текущего хранилища sms
+              storage setME    - установка памяти телефона как текущего хранилища sms
+        '''
+        if st_cmd and st_cmd in self.stor_cmd:
+            st_res = "Success"
+            if   st_cmd == self.stor_cmd[0]:   # priority
+                from pdtool import atsend as ats
+                #if is_changed(ats): ats = reload(ats)
+                reload(ats)
+                ats.st_priority()
+            elif st_cmd == self.stor_cmd[1]:   # counts
+                from pdtool import atsend as ats
+                #if is_changed(ats): ats = reload(ats)
+                reload(ats)
+                ats.st_counts()
+            elif st_cmd == self.stor_cmd[2]:   # setSM
+                from pdtool import atsend as ats
+                #if is_changed(ats): ats = reload(ats)
+                reload(ats)
+                ats.st_setSM()
+            else:                              # setME
+                from pdtool import atsend as ats
+                #if is_changed(ats): ats = reload(ats)
+                reload(ats)
+                ats.st_setME()
+        elif st_cmd:
+            st_res = "Unknown storage command"
+        else:
+            st_res = 'Enter storage command'
+        print st_res
+    def complete_storage(self, text, line, begidx, endidx):
+        if not text:
+            completions = self.stor_cmd[:]
+        else:
+            completions = [ f
+                            for f in self.stor_cmd
+                            if f.startswith(text)
+                          ]
+        return completions
     
     def do_greet(self, person):
-        if person:
-            print "hello,", person
+        if person and person in self.FRIENDS:
+            greeting = 'hi, %s!' % person
+        elif person:
+            greeting = "hello, " + person
         else:
-            print 'hello'
+            greeting = 'hello'
+        print greeting
     def help_greet(self):
         print '\n'.join([ 'greet [person]',
                           'Greet the named person',
                         ])
-                        
+    def complete_greet(self, text, line, begidx, endidx):
+        if not text:
+            completions = self.FRIENDS[:]
+        else:
+            completions = [ f
+                            for f in self.FRIENDS
+                            if f.startswith(text)
+                          ]
+        return completions
+
     def do_cmps(self, line):
         "  cmps - get CMPS"
         from pdtool import atsend as ats
@@ -63,15 +126,12 @@ if __name__ == '__main__':
 #    if c.upper() == 'N': break
 
 exit()
+
 ##########################################################
 
 #import pdtool
 #import pdtool.dbsqc as sqtool
 #from pdtool import dbsqc as sqtool
-
-import bluetooth
-import serial
-import time
 
 #def spyder_getpass(prompt='Password: '):
 #  set_spyder_echo(False)
@@ -81,79 +141,9 @@ import time
 #
 #print "Oops! Ha-ha! :) Your password is: " + spyder_getpass()
 
-import getpass
-import sys
+#import getpass
+#import sys
+#
+#ppp = getpass.getpass(stream=sys.stderr,              # где ты была сегодня киска?
+#                      prompt='Wath? ')
 
-ppp = getpass.getpass(stream=sys.stderr,              # где ты была сегодня киска?
-                      prompt='Wath? ')
-# warning: for set bluetooth PIN use command:
-#   $> bluetooth-agent 0000 &
-mac = 'E8:92:A4:04:99:4A'                             # bt-адрес mtk_first
-mac = '00:AA:70:1E:08:B3'                             # bt-адрес mtk_second
-chn = 9                                               # канал DUN-интерфейса (для mtk)
-
-sockfd = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-sockfd.connect((mac, chn))                            # BT Адрес и номер канала
-
-#sockfd.send('AT+CMGF=1\r')
-#sockfd.send('AT+CMGF=0\r')
-sockfd.send('AT+CPMS=?\r')
-#sockfd.send('AT+CPMS?\r')
-time.sleep(1)
-print sockfd.recv(1024)
-
-sockfd.send(chr(26))                                   # CTRL+Z
-sockfd.close()
-
-exit()
-
-#################################################################################
-
-import bluetooth
-import serial
-import time
-
-#def SendViaBluetooth():
-sockfd = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-#sockfd.connect(('E8:92:A4:04:99:4A', 9))               # BT Адрес и номер канала
-sockfd.connect(('00:AA:70:1E:08:B3', 9))
-
-#sockfd.send('AT+CNUM\r')
-#time.sleep(1)
-#print sockfd.recv(1024)
-#sockfd.send(chr(26))                                   # CTRL+Z
-#sockfd.close()
-#exit()
-
-#sockfd.send('AT+CMGF=1\r')                            #
-#sockfd.send('AT+CMGF=0\r')                             #
-
-#sockfd.send('AT+CPMS=?\r')
-#sockfd.send('AT+CPMS?\r')
-sockfd.send('AT+CPMS="SM_P"\r')
-time.sleep(1)
-print sockfd.recv(1024)
-#sockfd.send(chr(26))                                   # CTRL+Z
-#sockfd.close()
-#exit()
-
-sockfd.send('AT+CMGL=4\r')
-#sockfd.send('AT+CMGR=2\r')
-#sockfd.send('AT+CMGR=1\r')
-#sockfd.send('AT+CMGR=3\r')
-#sockfd.send('AT+CMGR=4\r')
-
-#sockfd.send('AT+CUSD=1,"*105#"\r')                    #
-time.sleep(1)
-#print sockfd.recv(1024)
-#print sockfd.recv(1024)
-#print sockfd.recv(2048)
-print sockfd.recv(40000)
-sockfd.send(chr(26))                                   # CTRL+Z
-sockfd.close()
-
-#sockfd.send('ATZ\r')
-#time.sleep(1)
-#print sockfd.recv(1024)
-#sockfd.send(chr(26))                                   # CTRL+Z
-#sockfd.close()
