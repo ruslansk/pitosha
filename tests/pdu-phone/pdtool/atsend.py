@@ -117,8 +117,8 @@ def st_readME():
     print sockfd.recv(1024)
 
     sockfd.send('AT+CMGL=4\r')                            # чтение sms по индексу
-    time.sleep(2)
-    out_data = sockfd.recv(40000)
+    time.sleep(8)
+    out_data = sockfd.recv(700000)
 
     fh = open("temp.bkp","w")
     fh.write(out_data)

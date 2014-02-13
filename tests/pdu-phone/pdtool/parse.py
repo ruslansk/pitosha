@@ -29,6 +29,8 @@ def parseFile(filename):
   input_file = open(filename)
   #input_file = open(sys.argv[1])
   #text = input_file.readlines()
+  text_head = input_file.readline()
+  print text_head
 
   progress = True
   dun_data = None
@@ -63,10 +65,24 @@ def parseFile(filename):
         decoded = gammu.DecodePDU(dun_bin) # gammu.DecodePDU(dun_bin, SMSC = False)
         print ''
         print '-------- decoded PDU -------------------------------'
-        print 'SMSC:             <>'
+        print 'SMSC:             SMSC Object'
+        smscobj = decoded['SMSC']
+        print '  .Location:      ' + str(smscobj['Location'        ])
+        print '  .Number:        ' + smscobj['Number'              ]
+        print '  .Name:          ' + smscobj['Name'                ]
+        print '  .DefaultNumber: ' + smscobj['DefaultNumber'       ]
+        print '  .Format:        ' + smscobj['Format'              ]
+        print '  .Validity:      ' + smscobj['Validity'            ]
         print 'Number:           ' + decoded['Number'              ]
         print 'Name:             ' + decoded['Name'                ]
-        print 'UDH:              <>'
+        print 'UDH:              UDH Object'
+        udh_obj = decoded['UDH']
+        print '  .ID8bit:        ' + str(udh_obj['ID8bit'          ])
+        print '  .ID16bit:       ' + str(udh_obj['ID16bit'         ])
+        print '  .PartNumber:    ' + str(udh_obj['PartNumber'      ])
+        print '  .AllParts:      ' + str(udh_obj['AllParts'        ])
+        print '  .Type:          ' + udh_obj['Type'                ]
+        print '  .Text:          ' + udh_obj['Text'                ]
         print 'Text:             ' + decoded['Text'                ]
         print 'Folder:           ' + str(decoded['Folder'          ])
         print 'Location:         ' + str(decoded['Location'        ])
@@ -80,7 +96,9 @@ def parseFile(filename):
         print 'Memory:           ' + decoded['Memory'              ]
         print 'Type:             ' + decoded['Type'                ]
         print 'Coding:           ' + decoded['Coding'              ]
-        print 'DateTime:         <>' #+ decoded['DateTime'].strftime("%Y-%m-%d %H:%M:%S")
+        #print 'DateTime:         ' + decoded['DateTime'].strftime("%Y-%m-%d %H:%M:%S")
+        print 'DateTime:         ' + str('<>' if   decoded['DateTime'] is None
+                                              else decoded['DateTime'].strftime("%Y-%m-%d %H:%M:%S"))
         print 'SMSCDateTime:     ' + decoded['SMSCDateTime'].strftime("%Y-%m-%d %H:%M:%S")
         print 'State:            ' + decoded['State'               ]
         print '----------------------------------------------------'

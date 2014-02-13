@@ -1,0 +1,17 @@
+git pull
+
+git status
+
+git diff
+
+git add .
+
+git rm path/path/file.ext
+
+git status
+
+git commit -a -m "comment"
+
+git status
+
+git push
