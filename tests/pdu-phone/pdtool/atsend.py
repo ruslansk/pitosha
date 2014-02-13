@@ -26,6 +26,7 @@ chn = 9                                                   # канал DUN-ин�
 
 # 'ATZ\r'
 # 'AT+CUSD=1,"*105#"\r'
+# 'AT+CNUM\r'
 
 def st_priority():
     sockfd = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
@@ -83,6 +84,46 @@ def st_setME():
     sockfd.send('AT+CPMS=?\r')   # приоритет систем хранения sms
     time.sleep(1)
     print sockfd.recv(1024)
+
+    sockfd.send(chr(26))                                  # CTRL+Z
+    sockfd.close()
+
+def st_readSM():
+    sockfd = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+    sockfd.connect((mac, chn))                            # BT Адрес и номер канала
+    
+    sockfd.send('AT+CPMS="SM_P"\r')                       # выбор хранилища SIM
+    time.sleep(1)
+    print sockfd.recv(1024)
+
+    sockfd.send('AT+CMGL=4\r')                            # чтение sms по индексу
+    time.sleep(2)
+    out_data = sockfd.recv(40000)
+
+    fh = open("temp.bkp","w")
+    fh.write(out_data)
+    fh.close()
+    print out_data
+
+    sockfd.send(chr(26))                                  # CTRL+Z
+    sockfd.close()
+
+def st_readME():
+    sockfd = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+    sockfd.connect((mac, chn))                            # BT Адрес и номер канала
+    
+    sockfd.send('AT+CPMS="ME"\r')                         # выбор хранилища в памяти телефона
+    time.sleep(1)
+    print sockfd.recv(1024)
+
+    sockfd.send('AT+CMGL=4\r')                            # чтение sms по индексу
+    time.sleep(2)
+    out_data = sockfd.recv(40000)
+
+    fh = open("temp.bkp","w")
+    fh.write(out_data)
+    fh.close()
+    print out_data
 
     sockfd.send(chr(26))                                  # CTRL+Z
     sockfd.close()

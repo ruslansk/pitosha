@@ -4,6 +4,10 @@
 import sys
 import pdtool.fixes as fixes
 
+#import pdtool
+#import pdtool.dbsqc as sqtool
+#from pdtool import dbsqc as sqtool
+
 # warning: for set bluetooth PIN use command:
 #   $> bluetooth-agent 0000 &
 
@@ -13,8 +17,8 @@ class PduToolCmd(cmd.Cmd):
     """Simple command processor example."""
 
     FRIENDS  = [ 'Alice', 'Adam', 'Barbara', 'Bob' ]
-    stor_cmd = [ 'priority', 'counts', 'setSM', 'setME', 'readOneSM', 'readOneME' ]
-    base_cmd = [ 'open', 'create', 'insert', 'select', 'sql', 'close' ]
+    stor_cmd = [ 'priority', 'counts', 'setSM', 'setME', 'readSM', 'readME', 'readOneSM', 'readOneME' ]
+    base_cmd = [ 'open', 'create', 'insert', 'select', 'sql', 'add', 'close' ]
     base_idx = None
     base_dbs = None
 
@@ -61,7 +65,17 @@ class PduToolCmd(cmd.Cmd):
                 #if is_changed(ats): ats = reload(ats)
                 reload(ats)
                 ats.st_setME()
-            elif st_cmd == self.stor_cmd[4]:   # readOneSM
+            elif st_cmd == self.stor_cmd[4]:   # readSM
+                from pdtool import atsend as ats
+                #if is_changed(ats): ats = reload(ats)
+                reload(ats)
+                ats.st_readSM()
+            elif st_cmd == self.stor_cmd[5]:   # readME
+                from pdtool import atsend as ats
+                #if is_changed(ats): ats = reload(ats)
+                reload(ats)
+                ats.st_readME()
+            elif st_cmd == self.stor_cmd[6]:   # readOneSM
                 from pdtool import atsend as ats
                 #if is_changed(ats): ats = reload(ats)
                 reload(ats)
@@ -92,7 +106,11 @@ class PduToolCmd(cmd.Cmd):
         '''
           работа с base
               base open        -
+              base create      -
+              base insert      -
+              base select      -
               base sql         -
+              base add         -
               base close       -
         '''
         db_cmd_s = db_cmd.split(' ')
@@ -100,7 +118,7 @@ class PduToolCmd(cmd.Cmd):
         db_sub   = ''
         if len(db_cmd_s) > 1: db_sub = db_cmd_s[1]
         if db_cmd and db_cmd in self.base_cmd:
-            db_res = "Success"
+            db_res = "Success\n\n"
             if   db_cmd == self.base_cmd[0]:   # open
                 from pdtool import dbsqc as dbs
                 ##if is_changed(dbs): dbs = reload(dbs)
@@ -113,26 +131,36 @@ class PduToolCmd(cmd.Cmd):
                 self.base_dbs.createT()
             elif db_cmd == self.base_cmd[2]:   # insert
                 #if is_changed(dbs): dbs = reload(dbs)
-                self.base_dbs.insertT('devName', 'dateAdd', 'pduBlob')
+                #self.base_dbs.insertT('devName', 'dateAdd', 'pduBlob')
+                self.base_dbs.insertT('devMTK_1', '11 feb', "394874jkfgfksh895419593451")
             elif db_cmd == self.base_cmd[3]:   # select
                 #if is_changed(dbs): dbs = reload(dbs)
-                self.base_dbs.selectAll()
+                if db_sub:
+                    self.base_dbs.selectOne(db_sub)
+                else:
+                    self.base_dbs.selectAll()
             elif db_cmd == self.base_cmd[4]:   # sql
                 #if is_changed(dbs): dbs = reload(dbs)
                 a = 1
+            elif db_cmd == self.base_cmd[5]:   # add
+                from pdtool import parse as par
+                if db_sub:
+                    par.parseFile(db_sub)
+                else:
+                    par.parseFile('temp.bkp')
             else:                              # close
                 #from pdtool import dbsqc as dbs
                 ##if is_changed(dbs): dbs = reload(dbs)
                 #reload(dbs)
                 self.base_idx = False
         elif db_cmd:
-            db_res = "Unknown storage command"
+            db_res = "Unknown storage command\n\n"
         else:
-            db_res = 'Enter storage command'
+            db_res = 'Enter storage command\n\n'
         print db_res
     def complete_base(self, text, line, begidx, endidx):
         if not text:
-            completions = self.stor_cmd[:]
+            completions = self.base_cmd[:]
         else:
             completions = [ f
                             for f in self.base_cmd
@@ -199,22 +227,4 @@ if __name__ == '__main__':
 exit()
 
 ##########################################################
-
-#import pdtool
-#import pdtool.dbsqc as sqtool
-#from pdtool import dbsqc as sqtool
-
-#def spyder_getpass(prompt='Password: '):
-#  set_spyder_echo(False)
-#  password = raw_input(prompt)
-#  set_spyder_echo(True)
-#  return password
-#
-#print "Oops! Ha-ha! :) Your password is: " + spyder_getpass()
-
-#import getpass
-#import sys
-#
-#ppp = getpass.getpass(stream=sys.stderr,              # где ты была сегодня киска?
-#                      prompt='Wath? ')
 
