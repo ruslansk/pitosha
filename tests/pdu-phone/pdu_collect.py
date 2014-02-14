@@ -17,7 +17,7 @@ class PduToolCmd(cmd.Cmd):
     """Simple command processor example."""
 
     FRIENDS  = [ 'Alice', 'Adam', 'Barbara', 'Bob' ]
-    stor_cmd = [ 'priority', 'counts', 'setSM', 'setME', 'readSM', 'readME', 'readOneSM', 'readOneME' ]
+    stor_cmd = [ 'priority', 'counts', 'setSM', 'setME', 'readSM', 'readME', 'readOneSM', 'readOneME', 'send' ]
     base_cmd = [ 'open', 'create', 'insert', 'select', 'sql', 'add', 'close' ]
     base_idx = None
     base_dbs = None
@@ -34,10 +34,15 @@ class PduToolCmd(cmd.Cmd):
     def do_storage(self, st_cmd):
         '''
           работа с системой хранения sms
-              storage priority - показ приоритета чтения sms из хранилищ
-              storage counts   - показ количества sms в хранилищах
-              storage setSM    - установка SIM как текущего хранилища sms
-              storage setME    - установка памяти телефона как текущего хранилища sms
+              storage priority   - показ приоритета чтения sms из хранилищ
+              storage counts     - показ количества sms в хранилищах
+              storage setSM      - установка SIM как текущего хранилища sms
+              storage setME      - установка памяти телефона как текущего хранилища sms
+              storage readSM     -
+              storage readME     -
+              storage readOneSM  -
+              storage readOneME  -
+              storage send ATcmd -
         '''
         st_cmd_s = st_cmd.split(' ')
         st_cmd   = st_cmd_s[0]
@@ -81,12 +86,18 @@ class PduToolCmd(cmd.Cmd):
                 reload(ats)
                 if st_sub:
                     ats.st_readOneFromSM(st_sub)
-            else:                                 # readOneME
+            elif st_cmd == self.stor_cmd[7]:   # readOneME
                 from pdtool import atsend as ats
                 #if is_changed(ats): ats = reload(ats)
                 reload(ats)
                 if st_sub:
                     ats.st_readOneFromME(st_sub)
+            else:                                 # manual 'send AT-command'
+                from pdtool import atsend as ats
+                #if is_changed(ats): ats = reload(ats)
+                reload(ats)
+                if st_sub:
+                    ats.st_send(st_sub)
         elif st_cmd:
             st_res = "Unknown storage command"
         else:
@@ -190,12 +201,14 @@ class PduToolCmd(cmd.Cmd):
                           ]
         return completions
 
-    def do_cmps(self, line):
-        "  cmps - get CMPS"
-        from pdtool import atsend as ats
-        #if is_changed(ats): ats = reload(ats)
-        reload(ats)
-        ats.getCMPS()
+    def do_decode(self, line):
+        from pdtool import parse as par
+        #if is_changed(par): ats = reload(par)
+        reload(par)
+        if line:
+            par.decodeFile(line)
+        else:
+            print "Enter filename for analyze: decode filename [offset]"
     
     def do_EOF(self, line):   # Ctrl-D, ^D$
         return True

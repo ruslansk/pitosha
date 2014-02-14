@@ -113,3 +113,25 @@ def parseFile(filename):
     #ch = sys.stdin.read(1)
     #if ch is not 'y': break
 
+def decodeFile(filename, offset=0):
+    # dd bs=512 count=1 if=/dev/sda of=mbr.bkp
+    import struct, binascii
+    f = open(filename, 'rb')
+    f_data = f.read()
+    t_data = f_data[0:3]
+    print " Jump Instruction: " + t_data.encode('hex')
+    #t_data = f_data[3:11]
+    #print "           OEM ID: " + t_data.encode('hex')
+    #t_data = binascii.b2a_uu(f_data[3:11])
+    t_data = struct.unpack_from('8s', f_data[3:11])
+    print "           OEM ID: " + t_data[0]
+    t_data = f_data[11:36]
+    print "              BPB: " + t_data.encode('hex')
+    f_len  = len(f_data)
+    if f_len < 512:
+        print "Read this many bytes: " + str(f_len)
+    #values = struct.unpack('17d', f_data[ offset + 0 : offset + 8*17 ])
+    f.close()
+
+#########################################################################
+
