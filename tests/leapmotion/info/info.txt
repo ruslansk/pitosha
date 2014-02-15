@@ -1,0 +1,6 @@
+!!! http://pymolwiki.org/index.php/Leap_Motion
+https://developer.leapmotion.com/documentation/python/devguide/Sample_Tutorial.html
+
+http://www.youtube.com/watch?v=G9mTlKSHOsQ
+https://github.com/openleap
+https://github.com/openleap/PyLeapMouse
