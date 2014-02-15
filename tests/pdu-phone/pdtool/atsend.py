@@ -10,8 +10,8 @@ import time
 # warning: for set bluetooth PIN use command:
 #   $> bluetooth-agent 0000 &
 
-mac = '00:AA:70:1E:08:B3'                                 # bt-адрес mtk_second
 mac = 'E8:92:A4:04:99:4A'                                 # bt-адрес mtk_first
+mac = '00:AA:70:1E:08:B3'                                 # bt-адрес mtk_second
 chn = 9                                                   # канал DUN-интерфейса (для mtk)
 
 # 'AT+CMGF=1\r'         # установка передачи в режиме PDU

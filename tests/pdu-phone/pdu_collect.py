@@ -21,6 +21,7 @@ class PduToolCmd(cmd.Cmd):
     base_cmd = [ 'open', 'create', 'insert', 'select', 'sql', 'add', 'close' ]
     base_idx = None
     base_dbs = None
+    deco_cmd = [ '1', '2', '3' ]
 
     prompt = 'pdutool#: '
     intro  = "Добро пожаловать в сборщик PDU :)\n"\
@@ -205,8 +206,10 @@ class PduToolCmd(cmd.Cmd):
         from pdtool import parse as par
         #if is_changed(par): ats = reload(par)
         reload(par)
-        if line:
-            par.decodeFile(line)
+        if line and line in self.deco_cmd:
+            par.decodeTest(line)
+        elif line:
+            par.decodeFile(line, magic='pe')
         else:
             print "Enter filename for analyze: decode filename [offset]"
     
