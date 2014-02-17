@@ -25,7 +25,8 @@ def put_DUNtext():
     return res
 
 def parsePDU(data):
-        import gammu
+    import gammu
+    try:
         decoded = gammu.DecodePDU(data) # gammu.DecodePDU(dun_bin, SMSC = False)
         print ''
         print '-------- decoded PDU -------------------------------'
@@ -67,6 +68,14 @@ def parsePDU(data):
         print 'SMSCDateTime:     ' + decoded['SMSCDateTime'].strftime("%Y-%m-%d %H:%M:%S")
         print 'State:            ' + decoded['State'               ]
         print '----------------------------------------------------'
+        print ''
+    except gammu.ERR_CORRUPTED, e:
+        ee = e[0]
+        print ''
+        print 'Gammu PDU decode error:'
+        print '    -  Text: ' + str(ee['Text'])
+        print '    -  Code: ' + str(ee['Code'])
+        print '    - Where: ' + str(ee['Where'])
         print ''
 
 def parseFile(filename):
@@ -120,7 +129,7 @@ def parseFile(filename):
 def decodeTest(cmd_idx):
     import struct, binascii
     if   cmd_idx == '1':
-      f = open('MPA3_001.bkp', 'rb')  # SMS
+      f = open('1_MPA3_001.bkp', 'rb')  # SMS
       f_data = f.read()
       f_len  = len(f_data)
 
@@ -131,6 +140,32 @@ def decodeTest(cmd_idx):
         pkt = f_data[ 0+(idx)*(186): 186+(idx)*(186)]
         pkt_one = pkt[  0:   1]
         i = pkt.index('\xff')
+        t_test  = pkt[  0:  176]
+
+        import re
+        #object = re.compile( ur"(.)\1{1,}$" )
+        #result = object.finditer( u"hellowffffff" )
+        #object = re.compile( b"(.)\xFF{1,}$" )
+        #result = object.finditer( b"\xAA\xBB\xCC\xDD\xDD\xEE\xAB\xFF\xFF" )
+        object = re.compile( b"(.)\xFF{1,}$" )
+        result = object.finditer( t_test )
+        group_name_by_index = dict( [ (v, k) for k, v in object.groupindex.items() ] )
+        print group_name_by_index
+        for match in result :
+          #vv1 = match.groups()
+          #vvv = match.span( vv1[0] + 1 )
+          #print "vvv[0]: " + vvv[0]
+          for group_index, group in enumerate( match.groups() ) :
+            if group :
+              print "text: %s" % group
+              print "position: %d, %d" % match.span( group_index + 1 )
+              vv = match.span( group_index + 1 )
+              print vv[0]+1
+              i = vv[0]+1
+              #print "group: %s" % group_name_by_index[ group_index + 1 ]
+            else:
+              i = 176
+
         t_data  = pkt[  1:  i]
         #j = pkt.rfind('\xff') + 1
         #pkt__ff = pkt[  i:  j]
@@ -144,7 +179,7 @@ def decodeTest(cmd_idx):
         print " len(t_data): " + str(len(t_data))
         print "     pkt__ff: " + pkt__ff.encode('hex')
         print "     pkt_two: " + pkt_two.encode('hex')
-        if pdu == True and len(t_data)>0 and pkt_one=='\x01':
+        if pdu == True and len(t_data)>0 and (pkt_one=='\x01' or pkt_one=='\x05'):
           parsePDU(t_data)
 
         txt = "Print prev packet       (1)\n"\
