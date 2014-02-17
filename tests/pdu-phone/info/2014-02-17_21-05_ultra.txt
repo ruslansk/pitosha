@@ -1,0 +1,61 @@
+Window 1
+
+   pdu online decoder - Поиск в Google
+   https://www.google.ru/search?q=pdu+online+decoder&oq=pdu+online+&aqs=chrome.1.69i57j0l3.7663j0j1&sourceid=chrome&ie=UTF-8
+
+   Online SMS PDU Decoder/Converter
+   http://www.diafaan.com/sms-tutorials/gsm-modem-tutorial/online-sms-pdu-decoder/
+
+   Online PDU Encoder and Decoder | Open Source @ twit88.com
+   http://twit88.com/home/utility/sms-pdu-encode-decode
+
+   timestamp online - Поиск в Google
+   https://www.google.ru/search?q=Time+stamp&oq=Time+stamp&aqs=chrome..69i57&sourceid=chrome&ie=UTF-8#newwindow=1&q=timestamp+online
+
+   Online Conversion - Unix time conversion
+   http://www.onlineconversion.com/unix_time.htm
+
+   Unix Timestamp конвертер. Epoch конвертер. Текущее unix время
+   http://www.cy-pr.com/tools/time/
+
+   Онлайн калькулятор unix time stamp
+   http://www.bl2.ru/programing/timestamp.html
+
+   Timestamp generator — Online Tools
+   http://i-tools.org/time
+
+   python name 'tz' is not defined - Поиск в Google
+   https://www.google.ru/search?q=python+unix+datetime&oq=python+unix+date&aqs=chrome.1.69i57j0l3.11672j0j1&sourceid=chrome&ie=UTF-8#newwindow=1&q=python+name+'tz'+is+not+defined
+
+   datetime - How do I convert local time to UTC in Python? - Stack Overflow
+   http://stackoverflow.com/questions/79797/how-do-i-convert-local-time-to-utc-in-python
+
+   How can I convert a Python datetime object to UTC? - Stack Overflow
+   http://stackoverflow.com/questions/3327946/how-can-i-convert-a-python-datetime-object-to-utc
+
+   pytz - World Timezone Definitions for Python — pytz 2013.9 documentation
+   http://pytz.sourceforge.net/
+
+   How to convert Python UTC datetime object to UNIX timestamp
+   http://ruslanspivak.com/2011/07/20/how-to-convert-python-utc-datetime-object-to-unix-timestamp/
+
+   Python datetime to Unix timestamp - Stack Overflow
+   http://stackoverflow.com/questions/2775864/python-datetime-to-unix-timestamp
+
+   datetime - Converting unix timestamp string to readable date in Python - Stack Overflow
+   http://stackoverflow.com/questions/3682748/converting-unix-timestamp-string-to-readable-date-in-python
+
+   Quickies > Python > Convert datetime to unix timestamp
+   http://quickies.seriot.ch/?id=397
+
+   How do you convert a python time.struct_time object into a datetime object? - Stack Overflow
+   http://stackoverflow.com/questions/1697815/how-do-you-convert-a-python-time-struct-time-object-into-a-datetime-object
+
+   Python datetime / time conversions « SaltyCrane Blog
+   http://www.saltycrane.com/blog/2008/11/python-datetime-time-conversions/
+
+   Datetime to filetime (Python) - Stack Overflow
+   http://stackoverflow.com/questions/6408077/datetime-to-filetime-python
+
+   Write and read Datetime to binary format in Python - Stack Overflow
+   http://stackoverflow.com/questions/18516582/write-and-read-datetime-to-binary-format-in-python

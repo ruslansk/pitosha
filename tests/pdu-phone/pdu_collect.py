@@ -10,6 +10,9 @@ import pdtool.fixes as fixes
 
 # warning: for set bluetooth PIN use command:
 #   $> bluetooth-agent 0000 &
+#
+# dpkg --status bluez | grep '^Version:'
+# sudo dpkg -l |grep bluetooth
 
 import cmd
 

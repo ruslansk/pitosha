@@ -143,6 +143,10 @@ def decodeTest(cmd_idx):
         t_test  = pkt[  0:  176]
 
         import re
+        from datetime import *
+        from dateutil import *
+        from dateutil.tz import *
+        from dateutil import tz
         #object = re.compile( ur"(.)\1{1,}$" )
         #result = object.finditer( u"hellowffffff" )
         #object = re.compile( b"(.)\xFF{1,}$" )
@@ -179,6 +183,22 @@ def decodeTest(cmd_idx):
         print " len(t_data): " + str(len(t_data))
         print "     pkt__ff: " + pkt__ff.encode('hex')
         print "     pkt_two: " + pkt_two.encode('hex')
+        pkt_two_datetime   = pkt_two[0:4]
+        pkt_two_datetime_r = pkt_two_datetime[::-1]
+        pkt_two_datetime_h = pkt_two_datetime_r.encode('hex')
+        recoverstamp       = struct.unpack('<L', pkt_two_datetime)[0]
+        #recovernow         = datetime.datetime.fromtimestamp(recoverstamp)
+        recovernow         = datetime.fromtimestamp(recoverstamp)
+        recovernow_str     = recovernow.strftime("%Y-%m-%d %H:%M:%S")
+        # auto-detect zones:
+        utc_zone   = tz.tzutc()
+        local_zone = tz.tzlocal()
+        recovernow = recovernow.replace(tzinfo=local_zone)
+        recovernow_2     = recovernow.astimezone(utc_zone)
+        recovernow_str_2 = recovernow_2.strftime("%Y-%m-%d %H:%M:%S")
+        print "       - datetime: " + pkt_two_datetime_h \
+                                    + ' (' + str(recoverstamp) + ') ' \
+                                    + recovernow_str_2
         if pdu == True and len(t_data)>0 and (pkt_one=='\x01' or pkt_one=='\x05'):
           parsePDU(t_data)
 
