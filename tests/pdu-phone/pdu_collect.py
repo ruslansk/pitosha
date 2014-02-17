@@ -128,7 +128,7 @@ class PduToolCmd(cmd.Cmd):
               base add         -
               base close       -
         '''
-        db_cmd_s = db_cmd.split(' ')
+        db_cmd_s = db_cmd.split(' ', 1)
         db_cmd   = db_cmd_s[0]
         db_sub   = ''
         if len(db_cmd_s) > 1: db_sub = db_cmd_s[1]
@@ -156,7 +156,8 @@ class PduToolCmd(cmd.Cmd):
                     self.base_dbs.selectAll()
             elif db_cmd == self.base_cmd[4]:   # sql
                 #if is_changed(dbs): dbs = reload(dbs)
-                a = 1
+                if db_sub:
+                    self.base_dbs.sqlEx(db_sub)
             elif db_cmd == self.base_cmd[5]:   # add
                 from pdtool import parse as par
                 if db_sub:

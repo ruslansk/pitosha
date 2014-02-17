@@ -18,3 +18,11 @@ copy to  \pysqlcipher\ <- setup.py
 install from http://www.lfd.uci.edu/~gohlke/pythonlibs/
                http://www.lfd.uci.edu/~gohlke/pythonlibs/gutyeufo/PyBluez-0.19.win32-py2.7.exe
                http://www.lfd.uci.edu/~gohlke/pythonlibs/gutyeufo/PyBluez-0.19.win-amd64-py2.7.exe
+
+
+-----------
+
+python setup.py build --plat-name=win32
+python setup.py build bdist_wininst --plat-name=win32
+python setup.py build --plat-name=win-amd64 bdist_wininst
+python setup.py build --mpi=mpich2-win32 --compiler=mingw32

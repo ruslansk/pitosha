@@ -89,3 +89,70 @@ Window 1
 
    Tutorial: Send And Receive SMS Using GSM Modem
    http://www.testech-elect.com/enfora/tutorial_send_receive_sms_using_gsm_modem.htm
+
+--------------------------
+
+   python sqlite insert blob data - Поиск в Google
+   https://www.google.ru/search?q=No+module+named+dateutil&oq=No+module+named+dateutil&aqs=chrome..69i57.1057236j0&sourceid=chrome&ie=UTF-8#newwindow=1&q=python+sqlite+insert+blob+data
+
+   sql - Insert binary file in SQLite database with Python - Stack Overflow
+   http://stackoverflow.com/questions/3310584/insert-binary-file-in-sqlite-database-with-python
+
+   sql - Writing blob from SQLite to file using Python - Stack Overflow
+   http://stackoverflow.com/questions/3379166/writing-blob-from-sqlite-to-file-using-python
+
+   Eli Bendersky's website » Storing BLOBs in a SQLite DB with Python/pysqlite
+   http://eli.thegreenplace.net/2009/05/29/storing-blobs-in-a-sqlite-db-with-pythonpysqlite/
+
+   Pysqlite storing file as blob example - Python
+   http://bytes.com/topic/python/answers/685551-pysqlite-storing-file-blob-example
+
+Window 1
+
+   QEMU - Emulating Raspberry Pi the easy way (Linux or Windows!)
+   http://xecdesign.com/qemu-emulating-raspberry-pi-the-easy-way/
+
+   QEMU - Compiling for ARM (1176) emulation
+   http://xecdesign.com/compiling-qemu/
+
+   Raspberry Pi • View topic - HOWTO: Virtual Raspbian on Qemu in Ubuntu Linux 12.10
+   http://www.raspberrypi.org/phpBB3/viewtopic.php?f=29&t=37386
+
+   404 Not Found
+   http://192.168.0.117/infa/dw/doku.php?id=heap:history:to_date:2013:12:09:2013-12-27_00-16_a
+
+   Bioinformatics Algorithms (Part 1) | Coursera
+   https://www.coursera.org/course/bioinformatics?from_restricted_preview=1&course_id=970636&r=https%3A%2F%2Fclass.coursera.org%2Fbioinformatics-001%2Flecture%2F69
+
+   Google
+   https://www.google.ru/?gfe_rd=ctrl&ei=IVYCU7yIOKOdwAP5oIG4Cg&gws_rd=cr
+
+   python sqlite3 select column names - Поиск в Google
+   https://www.google.ru/search?q=No+module+named+dateutil&oq=No+module+named+dateutil&aqs=chrome..69i57.1057236j0&sourceid=chrome&ie=UTF-8#newwindow=1&q=python+sqlite3+select+column+names
+
+   python, how split string with limit by the end - Stack Overflow
+   http://stackoverflow.com/questions/20312851/python-how-split-string-with-limit-by-the-end
+
+   Fábio Santos's blog: Python: str.split has a "limit" argument
+   http://fabiosantoscode.blogspot.ru/2012/09/python-strsplit-has-limit-argument.html
+
+   python - Get list of column names from an empty table - Stack Overflow
+   http://stackoverflow.com/questions/5993102/get-list-of-column-names-from-an-empty-table
+
+   sqlite - How to get a list of column names on sqlite3 / iPhone? - Stack Overflow
+   http://stackoverflow.com/questions/947215/how-to-get-a-list-of-column-names-on-sqlite3-iphone
+
+   python - Is there a way to get a list of column names in sqlite? - Stack Overflow
+   http://stackoverflow.com/questions/7831371/is-there-a-way-to-get-a-list-of-column-names-in-sqlite
+
+   sql - Insert binary file in SQLite database with Python - Stack Overflow
+   http://stackoverflow.com/questions/3310584/insert-binary-file-in-sqlite-database-with-python
+
+   sql - Writing blob from SQLite to file using Python - Stack Overflow
+   http://stackoverflow.com/questions/3379166/writing-blob-from-sqlite-to-file-using-python
+
+   Eli Bendersky's website » Storing BLOBs in a SQLite DB with Python/pysqlite
+   http://eli.thegreenplace.net/2009/05/29/storing-blobs-in-a-sqlite-db-with-pythonpysqlite/
+
+   Pysqlite storing file as blob example - Python
+   http://bytes.com/topic/python/answers/685551-pysqlite-storing-file-blob-example

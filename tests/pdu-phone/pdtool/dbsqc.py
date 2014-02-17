@@ -55,11 +55,40 @@ def createT():
                       ' pdu_blob VARCHAR(500)) '
     cur.execute(sql)
     conn.commit()
+    sql = 'DROP TABLE raw_data'
+    cur.execute(sql)
+    conn.commit()
+    sql = 'CREATE TABLE IF NOT EXISTS raw_data ( '      \
+                      ' id       INTEGER PRIMARY KEY, ' \
+                      ' file     VARCHAR(256), ' \
+                      ' comment  VARCHAR(50),' \
+                      ' data     BLOB)'
+    cur.execute(sql)
+    conn.commit()
+
+def sqlEx(txt):
+    global conn, cur
+    print "Execute: " + txt
+    cur.execute(txt)
+    r = cur.fetchone()
+    print r.keys()
+    for row in cur:
+        print row[0]
 
 def insertT(devName, dateAdd, pduBlob):
     global conn, cur
-    cur.execute('INSERT INTO pdu_data VALUES (null, ?, ?, ?)', (devName, dateAdd, pduBlob))
-    conn.commit()
+    #cur.execute('INSERT INTO pdu_data VALUES (null, ?, ?, ?)', (devName, dateAdd, pduBlob))
+    #conn.commit()
+    txt = "1_MPA3_001.bkp"
+    with open(txt, "rb") as input_file:
+        ablob = input_file.read()
+        cur.execute('INSERT INTO raw_data (id, file, comment, data) VALUES(0, ?, "comment", ?)', \
+                    [txt, sqc3.Binary(ablob)])
+        conn.commit()
+    with open("output.bkp", "wb") as output_file:
+        cur.execute("SELECT data FROM raw_data WHERE id = 0")
+        ablob = cur.fetchone()
+        output_file.write(ablob[0])
 
 def selectAll():
     global conn, cur
