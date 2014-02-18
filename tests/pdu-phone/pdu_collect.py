@@ -211,7 +211,9 @@ class PduToolCmd(cmd.Cmd):
         #if is_changed(par): ats = reload(par)
         reload(par)
         if line and line in self.deco_cmd:
-            par.decodeTest(line)
+            data = self.base_dbs.extractTT(0)
+            par.parseSetBase(self.base_dbs)
+            par.decodeTest(line, data)
         elif line:
             par.decodeFile(line, magic='pe')
         else:

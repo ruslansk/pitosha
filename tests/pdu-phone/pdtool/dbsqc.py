@@ -47,22 +47,34 @@ def create_table(table_name):
 
 def createT():
     global conn, cur
-    #sql = 'CREATE TABLE pdu_data ('       +\
-    sql = 'CREATE TABLE IF NOT EXISTS pdu_data ('       \
+    #sql = 'DROP TABLE IF EXISTS pdu_data'
+    #cur.execute(sql)
+    #conn.commit()
+    ##sql = 'CREATE TABLE pdu_data ('       +\
+    #sql = 'CREATE TABLE IF NOT EXISTS pdu_data ('       \
+    #                  ' id       INTEGER PRIMARY KEY, ' \
+    #                  ' dev_name VARCHAR(100), '        \
+    #                  ' date_add VARCHAR(30),  '        \
+    #                  ' pdu_blob VARCHAR(500)) '
+    #cur.execute(sql)
+    #conn.commit()
+    #sql = 'DROP TABLE IF EXISTS raw_data'
+    #cur.execute(sql)
+    #conn.commit()
+    #sql = 'CREATE TABLE IF NOT EXISTS raw_data ( '      \
+    #                  ' id       INTEGER PRIMARY KEY, ' \
+    #                  ' file     VARCHAR(256), ' \
+    #                  ' comment  VARCHAR(50),' \
+    #                  ' data     BLOB)'
+    #cur.execute(sql)
+    #conn.commit()
+    sql = 'CREATE TABLE IF NOT EXISTS sms_data ( '      \
                       ' id       INTEGER PRIMARY KEY, ' \
-                      ' dev_name VARCHAR(100), '        \
-                      ' date_add VARCHAR(30),  '        \
-                      ' pdu_blob VARCHAR(500)) '
-    cur.execute(sql)
-    conn.commit()
-    sql = 'DROP TABLE raw_data'
-    cur.execute(sql)
-    conn.commit()
-    sql = 'CREATE TABLE IF NOT EXISTS raw_data ( '      \
-                      ' id       INTEGER PRIMARY KEY, ' \
-                      ' file     VARCHAR(256), ' \
-                      ' comment  VARCHAR(50),' \
-                      ' data     BLOB)'
+                      ' comment  VARCHAR(50),  ' \
+                      ' txt_md5  VARCHAR(64),  ' \
+                      ' pdu_txt  VARCHAR(500), ' \
+                      ' bin_md5  VARCHAR(64),  ' \
+                      ' pdu_bin  BLOB)'
     cur.execute(sql)
     conn.commit()
 
@@ -75,20 +87,65 @@ def sqlEx(txt):
     for row in cur:
         print row[0]
 
+def insertSMS(pdu_txt=None, pdu_bin=None, pdu_dtm=None):
+    global conn, cur
+    if   pdu_txt and pdu_bin:
+      if pdu_txt is not pdu_bin.encode("hex"):
+        print "pdu_txt and pdu_bin is not equal!"
+        return
+    elif pdu_txt:
+      pdu_bin = pdu_txt.decode("hex")
+    elif pdu_bin:
+      pdu_txt = pdu_bin.encode("hex")
+    else:
+        print "pdu_txt and pdu_bin not set!"
+        return
+    import hashlib
+    #str_h = 'My hesh'
+    str_h = pdu_txt
+    hsh = hashlib.md5()
+    hsh.update(str_h)
+    txt_md5 = hsh.hexdigest()
+    str_h = pdu_bin
+    hsh = hashlib.md5()
+    hsh.update(str_h)
+    bin_md5 = hsh.hexdigest()
+    cur.execute('INSERT INTO sms_data (comment, pdu_txt, txt_md5, pdu_bin, bin_md5) VALUES("comment", ?, ?, ?, ?)', \
+                [pdu_txt, txt_md5, sqc3.Binary(pdu_bin), bin_md5])
+    conn.commit()
+
+def insertTT(txt, idx):
+    global conn, cur
+    #txt = "2_MPA3_001.bkp"
+    print "Inserting: " + txt
+    with open(txt, "rb") as input_file:
+        ablob = input_file.read()
+        cur.execute('INSERT INTO raw_data (id, file, comment, data) VALUES(' + str(idx) + ', ?, "comment", ?)', \
+                    [txt, sqc3.Binary(ablob)])
+        conn.commit()
+    #with open("output.bkp", "wb") as output_file:
+    #    cur.execute("SELECT data FROM raw_data WHERE id = 1")
+    #    ablob = cur.fetchone()
+    #    output_file.write(ablob[0])
+
+def extractTT(idx):
+    global conn, cur
+    cur.execute("SELECT data FROM raw_data WHERE id = " + str(idx))
+    ablob = cur.fetchone()
+    return ablob[0]
+
 def insertT(devName, dateAdd, pduBlob):
     global conn, cur
     #cur.execute('INSERT INTO pdu_data VALUES (null, ?, ?, ?)', (devName, dateAdd, pduBlob))
     #conn.commit()
-    txt = "1_MPA3_001.bkp"
-    with open(txt, "rb") as input_file:
-        ablob = input_file.read()
-        cur.execute('INSERT INTO raw_data (id, file, comment, data) VALUES(0, ?, "comment", ?)', \
-                    [txt, sqc3.Binary(ablob)])
-        conn.commit()
-    with open("output.bkp", "wb") as output_file:
-        cur.execute("SELECT data FROM raw_data WHERE id = 0")
-        ablob = cur.fetchone()
-        output_file.write(ablob[0])
+    #  0 - 1_MPA3_001.bkp
+    #  1 - 2_MPA3_001.bkp
+    #insertTT('1_MP0C_004.bkp', 2)
+    #insertTT('1_MP84_002.bkp', 3)
+    #insertTT('1_MPD1_001.bkp', 4)
+    #insertTT('1_MP0H_007.bkp', 5)
+    #insertTT('2_MP0C_004.bkp', 6)
+    #insertTT('2_MPD1_001.bkp', 7)
 
 def selectAll():
     global conn, cur

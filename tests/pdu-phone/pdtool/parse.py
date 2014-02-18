@@ -6,8 +6,14 @@ import sys
 # my tool: from 'fixes' import 'getch' 
 import fixes
 
+g_base_dbs = None
+
 class DUNObj(object):
     __slots__= "info", "data", "othr",
+
+def parseSetBase(db):
+    global g_base_dbs
+    g_base_dbs = db
 
 def put_DUNtext():
     global input_file
@@ -92,12 +98,12 @@ def parseFile(filename):
     if progress == True:
         dun_data = put_DUNtext()
         progress = False
-    txt = "Print single Info    (1)\n"\
-          "Print single Blob    (2)\n"\
-          "Decode PDU message   (3)\n"\
-          "Add record to opened (4)\n"\
-          "Stop                 (ESC)\n"\
-          "Next                 (Enter or Space): "
+    txt = "Print single Info           (1)\n"\
+          "Print single Blob           (2)\n"\
+          "Decode PDU message          (3)\n"\
+          "Add record to opened base   (4)\n"\
+          "Stop                      (ESC)\n"\
+          "Next           (Enter or Space): "
     if dun_data.info == 'OK':
         print "Parse completed!\n"
         break
@@ -118,6 +124,8 @@ def parseFile(filename):
         parsePDU(dun_bin)
     elif c.upper() == '4':
         print "Entered 4"
+        global g_base_dbs
+        g_base_dbs.insertSMS(pdu_bin=dun_bin)
     elif c == chr(27): break
     else:
         #print "Enter correct data"
@@ -126,11 +134,17 @@ def parseFile(filename):
     #ch = sys.stdin.read(1)
     #if ch is not 'y': break
 
-def decodeTest(cmd_idx):
+def decodeTest(cmd_idx, data=None):
     import struct, binascii
     if   cmd_idx == '1':
-      f = open('1_MPA3_001.bkp', 'rb')  # SMS
-      f_data = f.read()
+      f_data  = None
+      is_file = False
+      if data:
+          f_data = data
+      else:
+          f = open('1_MPA3_001.bkp', 'rb')  # SMS
+          f_data = f.read()
+          is_file = True
       f_len  = len(f_data)
 
       idx = 0
@@ -143,9 +157,10 @@ def decodeTest(cmd_idx):
         t_test  = pkt[  0:  176]
 
         import re
-        from datetime import *
-        from dateutil import *
-        from dateutil.tz import *
+        import datetime
+        #from datetime import *
+        #from dateutil import *
+        #from dateutil.tz import *
         from dateutil import tz
         #object = re.compile( ur"(.)\1{1,}$" )
         #result = object.finditer( u"hellowffffff" )
@@ -187,8 +202,8 @@ def decodeTest(cmd_idx):
         pkt_two_datetime_r = pkt_two_datetime[::-1]
         pkt_two_datetime_h = pkt_two_datetime_r.encode('hex')
         recoverstamp       = struct.unpack('<L', pkt_two_datetime)[0]
-        #recovernow         = datetime.datetime.fromtimestamp(recoverstamp)
-        recovernow         = datetime.fromtimestamp(recoverstamp)
+        recovernow         = datetime.datetime.fromtimestamp(recoverstamp)
+        #recovernow         = datetime.fromtimestamp(recoverstamp)
         recovernow_str     = recovernow.strftime("%Y-%m-%d %H:%M:%S")
         # auto-detect zones:
         utc_zone   = tz.tzutc()
@@ -205,6 +220,7 @@ def decodeTest(cmd_idx):
         txt = "Print prev packet       (1)\n"\
               "Print next packet       (2)\n"\
               "Decode/No PDU message   (3)\n"\
+              "Add to opened base      (4)\n"\
               "Stop                    (ESC)\n"
         sys.stdout.write(txt)
         c = fixes.getch()
@@ -216,12 +232,17 @@ def decodeTest(cmd_idx):
             idx = idx + 1
         elif c.upper() == '3':
           pdu = not pdu
+        elif c.upper() == '4':
+          global g_base_dbs
+          g_base_dbs.insertSMS(pdu_bin=t_data)
+          print "Success added sms to opened base"
         elif c == chr(27): break
         else:
           #print "Enter correct data"
           print "Entered any other key"
 
-      f.close()
+      if is_file:
+        f.close()
     elif cmd_idx == '2':
         f = open('MP0C_004.bkp', 'rb')  # ? Ext Phonebook
         f_data = f.read()
