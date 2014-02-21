@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  dir="ltr">
+
+<head>
+	<script type="text/javascript" src="ZeroClipboard.js"></script>
+</head>
+
+<body>
+
+<p><input type="button" id="copyD" name="copyD" value="Directum" /></p>
+<p><input type="button" id="copyP" name="copyP" value="Persons" /></p>
+
+<script type="text/javascript">
+//set path
+ZeroClipboard.setMoviePath('ZeroClipboard.swf');
+//create client
+var clipD = new ZeroClipboard.Client();
+//event
+clipD.addEventListener('mousedown',function() {
+	//clipD.setText(document.getElementById('box-content').value);
+	clipD.setText('AHK::Directum');
+});
+clipD.addEventListener('complete',function(client,text) {
+	//alert('copied: ' + text);
+});
+//glue it to the button
+clipD.glue('copyD');
+
+var clipP = new ZeroClipboard.Client();
+clipP.addEventListener('mousedown',function() {
+	clipP.setText('AHK::Persons');
+});
+clipP.glue('copyP');
+</script>
+
+</body>
+</html>
