@@ -146,6 +146,7 @@ def insertT(devName, dateAdd, pduBlob):
     #insertTT('1_MP0H_007.bkp', 5)
     #insertTT('2_MP0C_004.bkp', 6)
     #insertTT('2_MPD1_001.bkp', 7)
+    #insertTT('1_MPA3_001_2.bkp', 8)
 
 def selectAll():
     global conn, cur
