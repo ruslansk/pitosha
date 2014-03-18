@@ -1,0 +1,135 @@
+Window 1
+
+   FsvcLog
+   http://80.76.132.144:9080/SmevRequestAdapter/log
+
+   SSManager Testing
+   http://localhost:57989/SSManager/Testing
+
+   SSManager Helper
+   http://localhost:57989/SSManager/Helper.jsp
+
+   Входящие — Яндекс.Почта
+   https://mail.yandex.ru/for/it-exclusive.ru/neo2/#inbox
+
+   Письмо «Fwd: Ошибка сервиса SID0003799. INC000000487955» — Дроздова Дарья Андреевна — Яндекс.Почта
+   https://mail.yandex.ru/for/it-exclusive.ru/neo2/#message/2430000001119305771
+
+   Используем OpenCL в Python / Хабрахабр
+   http://habrahabr.ru/post/146993/
+
+   Первые шаги с OpenCL или сказ о том как одинаковый код на GPU и CPU запускать / Хабрахабр
+   http://habrahabr.ru/post/146823/
+
+   Development and Support List for PyOpenCL ()
+   http://comments.gmane.org/gmane.comp.python.opencl/1078
+
+   [PyOpenCL] Get device info from context
+   http://lists.tiker.net/pipermail/pyopencl/2011-August/000853.html
+
+   Adventures in PyOpenCL: Part 1 Getting Started with Python | enjalot
+   http://enja.org/2011/02/22/adventures-in-pyopencl-part-1-getting-started-with-python/
+
+   www.training.prace-ri.eu/uploads/tx_pracetmo/LinkSCEMM_pyOpenCL.pdf
+   http://www.training.prace-ri.eu/uploads/tx_pracetmo/LinkSCEMM_pyOpenCL.pdf
+
+   www.uni-graz.at/~haasegu/Lectures/GPU_CUDA/Lit/andreas_kloeckner_pyopencl.pdf
+   http://www.uni-graz.at/~haasegu/Lectures/GPU_CUDA/Lit/andreas_kloeckner_pyopencl.pdf
+
+   Easy OpenCL with Python | Dr Dobb's
+   http://www.drdobbs.com/open-source/easy-opencl-with-python/240162614
+
+   Easy OpenCL with Python | Dr Dobb's
+   http://www.drdobbs.com/open-source/easy-opencl-with-python/240162614?pgno=2
+
+   python-opencl - Get device info from context - msg#00020 - Recent Discussion OSDir.com
+   http://osdir.com/ml/python-opencl/2011-08/msg00020.html
+
+   gpulab.imm.dtu.dk/Workshop2011/lec1.pdf
+   http://gpulab.imm.dtu.dk/Workshop2011/lec1.pdf
+
+   QSystemTrayIcon closeEvent - Поиск в Google
+   https://www.google.ru/search?q=python+Qt&oq=python+Qt&aqs=chrome..69i57.6293j0j1&sourceid=chrome&ie=UTF-8#newwindow=1&q=QSystemTrayIcon+closeEvent
+
+   How to catch QSystemTrayIcon quit event | Qt Project forums | Qt Project
+   http://qt-project.org/forums/viewthread/8304
+
+   c++ - How to catch the QSystemTrayIcon quit event? - Stack Overflow
+   http://stackoverflow.com/questions/6889368/how-to-catch-the-qsystemtrayicon-quit-event
+
+   Python-сообщество / GUI / QtGui.QSystemTrayIcon
+   http://python.su/forum/topic/3320/
+
+   вопрос про трей (QSystemTrayIcon) [РЕШЕНО]
+   http://www.prog.org.ru/topic_21263_0.html
+
+   rowinggolfer: PyQt QSysTrayIcon Example
+   http://rowinggolfer.blogspot.ru/2011/06/pyqt-qsystrayicon-example.html
+
+   python - PyQt: Show menu in a system tray application - Stack Overflow
+   http://stackoverflow.com/questions/893984/pyqt-show-menu-in-a-system-tray-application
+
+   python - PyQt4 Minimize to Tray - Stack Overflow
+   http://stackoverflow.com/questions/758256/pyqt4-minimize-to-tray
+
+   examples/desktop/systray/systray.py in pyside/pyside-examples:master - Qt by Digia
+   https://qt.gitorious.org/pyside/pyside-examples/source/e5d379f38bf03406056e8b14af95ae36a0a1de08:examples/desktop/systray/systray.py#L85
+
+   Написание приложений, основаных на Qt, на языке Python / Хабрахабр
+   http://habrahabr.ru/post/31426/
+
+   VPF::Программирование с PyQt4 - Форум программистов
+   http://forum.vingrad.ru/forum/topic-159421/kw-pyqt.html
+
+   Программирование на Python с использованием PyQt4 - Поиск в Google
+   https://www.google.ru/search?q=%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5+%D0%BD%D0%B0+Python+%D1%81+%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%D0%BC+PyQt4&oq=%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5+%D0%BD%D0%B0+Python+%D1%81+%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%D0%BC+PyQt4&aqs=chrome..69i57&sourceid=chrome&ie=UTF-8#newwindow=1&q=%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5+%D0%BD%D0%B0+Python+%D1%81+%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%D0%BC+PyQt4&start=10
+
+   Документации/ВведениеВСредуPyQt4 - Wiki Портала-Python программистов
+   http://wiki.python.su/%D0%94%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D0%B8/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%D0%92%D0%A1%D1%80%D0%B5%D0%B4%D1%83PyQt4
+
+   Программирование на Python с использованием PyQt4
+   http://proga-school.narod.ru/My_Python/prog_py_qt4.htm
+
+   Разговариваем про PyQt4 — Посиделка первая / Хабрахабр
+   http://habrahabr.ru/post/75226/
+
+   Программирование на PyQt4. Часть 1 / Хабрахабр
+   http://habrahabr.ru/post/44692/
+
+   PyQt | Программирование на Python
+   http://pythoner.name/taxonomy/pyqt
+
+   Проект "Сравнение разработки графического интерфейса с помощью библиотек PyQt и Tkinter на примере программы 'Вычислитель дат и дней'" | Лаборатория юного линуксоида
+   http://younglinux.info/projects/tkinter-pyqt
+
+   Что сейчас актуально для грамотной разработки GUI-приложений на Python с использованием Qt/PyQt/PySide/QML/etc...? — Toster.ru
+   https://toster.ru/q/62456
+
+   PyQt4 — Введение / Хабрахабр
+   http://habrahabr.ru/post/31684/
+
+Window 2
+
+   Edit JDBC Connection Pool Properties
+   http://localhost:4848/common/index.jsf
+
+   Письмо «проблема с import_mdou» — Надежда Вячеславовна Бурмистрова — Яндекс.Почта
+   https://mail.yandex.ru/for/it-exclusive.ru/neo2/#message/2430000001129084943
+
+   java - Best Practices - Sending javamail mime multipart emails - and gmail - Stack Overflow
+   http://stackoverflow.com/questions/14744197/best-practices-sending-javamail-mime-multipart-emails-and-gmail
+
+   JavaMail API - FAQ
+   http://www.oracle.com/technetwork/java/javamail/faq/index.html#readattach
+
+   javamail - reading body part of a mime multipart - Stack Overflow
+   http://stackoverflow.com/questions/13474705/reading-body-part-of-a-mime-multipart
+
+   Creating mime multipart/alternative HTML emails with attachments / java mail | mlyly
+   http://mlyly.wordpress.com/2011/05/13/hello-world/
+
+   GC: MimeMultipart - javax.mail.internet.MimeMultipart (.java) - GrepCode Class Source
+   http://grepcode.com/file/repo1.maven.org/maven2/javax.mail/mail/1.4.1/javax/mail/internet/MimeMultipart.java
+
+   Java Mail... Message.getContent().. can't get Content! (Java API forum at JavaRanch)
+   http://www.coderanch.com/t/454945/java/java/Java-Mail-Message-getContent-Content
