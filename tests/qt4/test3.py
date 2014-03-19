@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# http://rowinggolfer.blogspot.ru/2011/06/pyqt-qsystrayicon-example.html
 from PyQt4 import QtGui, QtCore
 
 class RightClickMenu(QtGui.QMenu):

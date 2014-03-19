@@ -16,6 +16,22 @@ class RightClickMenu(QtGui.QMenu):
     icon = QtGui.QIcon.fromTheme("edit-paste")
     self.addAction(QtGui.QAction(icon, "&Paste", self))
 
+    self.addSeparator()
+    self.addAction(QtGui.QAction( '50%', self, checkable=True))
+    self.addAction(QtGui.QAction('100%', self, checkable=True))
+    self.addAction(QtGui.QAction('200%', self, checkable=True))
+    self.addAction(QtGui.QAction('300%', self, checkable=True))
+    self.addAction(QtGui.QAction('400%', self, checkable=True))
+
+    self.addSeparator()
+    #self.quitAction = QtGui.QAction("&Quit", self,
+    #                                 triggered=QtGui.qApp.quit)
+    self.addAction(QtGui.QAction("&Quit", self,
+                                  triggered=QtGui.qApp.quit))
+    #icon = QtGui.QIcon.fromTheme("document-save")
+    #self.quitAction = QtGui.QAction(icon, "&Quit", self)
+    #self.addAction(self.quitAction)
+
 class LeftClickMenu(QtGui.QMenu):
   def __init__(self, parent=None):
     QtGui.QMenu.__init__(self, "File", parent)
@@ -28,15 +44,6 @@ class LeftClickMenu(QtGui.QMenu):
 
     icon = QtGui.QIcon.fromTheme("document-save")
     self.addAction(QtGui.QAction(icon, "&Save", self))
-
-    self.addSeparator()
-    #self.quitAction = QtGui.QAction("&Quit", self,
-    #                                 triggered=QtGui.qApp.quit)
-    self.addAction(QtGui.QAction("&Quit", self,
-                                  triggered=QtGui.qApp.quit))
-    #icon = QtGui.QIcon.fromTheme("document-save")
-    #self.quitAction = QtGui.QAction(icon, "&Quit", self)
-    #self.addAction(self.quitAction)
 
 class SystemTrayIcon(QtGui.QSystemTrayIcon):
   def __init__(self, parent=None):
@@ -59,18 +66,21 @@ class SystemTrayIcon(QtGui.QSystemTrayIcon):
   #  self.hide()
   #  sys.exit()
 
-  def closeEvent(self, event):
-    if self.isVisible():
-      QtGui.QMessageBox.information(None, "Systray",
-            "The program will keep running in the system tray. To "
-            "terminate the program, choose <b>Quit</b> in the "
-            "context menu of the system tray entry.")
-      self.hide()
-      event.ignore()
+  #def closeEvent(self, event):
+  #  if self.isVisible():
+  #    QtGui.QMessageBox.information(None, "Systray",
+  #          "The program will keep running in the system tray. To "
+  #          "terminate the program, choose <b>Quit</b> in the "
+  #          "context menu of the system tray entry.")
+  #    self.hide()
+  #    event.ignore()
 
   def click_trap(self, value):
-    if value == self.Trigger: #left click!
-      self.left_menu.exec_(QtGui.QCursor.pos())
+    #if value == self.Trigger: #left click!
+    #  self.left_menu.exec_(QtGui.QCursor.pos())
+    if value == QtGui.QSystemTrayIcon.DoubleClick:
+      #sendudp("s3641\n")
+      QtGui.QMessageBox.information(None, "Systray", "DoubleClick pressed")
 
   def welcome(self):
     #self.showMessage("Hello", "I should be aware of both buttons")
@@ -97,10 +107,12 @@ if __name__ == "__main__":
           "I couldn't detect any system tray on this system.")
     sys.exit(1)
 
-  QtGui.QApplication.setQuitOnLastWindowClosed(True)
+  #QtGui.QApplication.setQuitOnLastWindowClosed(True)
 
   tray = SystemTrayIcon()
   tray.show()
 
   #set the exec loop going
-  sys.exit(app.exec_())
+  app.exec_()
+  #sys.exit(app.exec_())
+
