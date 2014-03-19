@@ -1,4 +1,6 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from PyQt4 import QtGui, QtCore
 
 class RightClickMenu(QtGui.QMenu):
@@ -30,8 +32,11 @@ class LeftClickMenu(QtGui.QMenu):
     self.addSeparator()
     #self.quitAction = QtGui.QAction("&Quit", self,
     #                                 triggered=QtGui.qApp.quit)
-    self.quitAction = QtGui.QAction("&Quit", self)
-    self.addAction(self.quitAction)
+    self.addAction(QtGui.QAction("&Quit", self,
+                                  triggered=QtGui.qApp.quit))
+    #icon = QtGui.QIcon.fromTheme("document-save")
+    #self.quitAction = QtGui.QAction(icon, "&Quit", self)
+    #self.addAction(self.quitAction)
 
 class SystemTrayIcon(QtGui.QSystemTrayIcon):
   def __init__(self, parent=None):
@@ -42,21 +47,21 @@ class SystemTrayIcon(QtGui.QSystemTrayIcon):
     self.setContextMenu(self.right_menu)
 
     self.left_menu = LeftClickMenu()
-    self.connect(self.left_menu.quitAction,
-                 QtCore.SIGNAL("triggered()"), 
-                 QtCore.SLOT("on_test()"))
+    #self.connect(self.left_menu.quitAction,
+    #             QtCore.SIGNAL("triggered()"), 
+    #             QtCore.SLOT("on_test()"))
 
     self.activated.connect(self.click_trap)
 
-  @QtCore.pyqtSlot()
-  def on_test(self):
-    QtGui.QMessageBox.information("Systray", "Test")
-    self.hide()
-    sys.exit()
+  #@QtCore.pyqtSlot()
+  #def on_test(self):
+  #  #QtGui.QMessageBox.information(None, "Systray", "Test")
+  #  self.hide()
+  #  sys.exit()
 
   def closeEvent(self, event):
     if self.isVisible():
-      QtGui.QMessageBox.information(self, "Systray",
+      QtGui.QMessageBox.information(None, "Systray",
             "The program will keep running in the system tray. To "
             "terminate the program, choose <b>Quit</b> in the "
             "context menu of the system tray entry.")
@@ -68,7 +73,8 @@ class SystemTrayIcon(QtGui.QSystemTrayIcon):
       self.left_menu.exec_(QtGui.QCursor.pos())
 
   def welcome(self):
-    self.showMessage("Hello", "I should be aware of both buttons")
+    #self.showMessage("Hello", "I should be aware of both buttons")
+    self.showMessage(u"Привет", u"Я оконное сообщение")
 
   def show(self):
     QtGui.QSystemTrayIcon.show(self)
@@ -77,6 +83,12 @@ class SystemTrayIcon(QtGui.QSystemTrayIcon):
 if __name__ == "__main__":
 
   import sys
+
+  #app = QtGui.QApplication([])
+  #QtGui.QMessageBox.information(None, "Systray", "Test")
+  #QtGui.QMessageBox.critical(None, "Systray",
+  #        "I couldn't detect any system tray on this system.")
+  #sys.exit(0)
 
   app = QtGui.QApplication([])
 
