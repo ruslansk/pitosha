@@ -28,8 +28,10 @@ class LeftClickMenu(QtGui.QMenu):
     self.addAction(QtGui.QAction(icon, "&Save", self))
 
     self.addSeparator()
-    self.addAction(QtGui.QAction("&Quit", self,
-                           triggered=QtGui.qApp.quit))
+    #self.quitAction = QtGui.QAction("&Quit", self,
+    #                                 triggered=QtGui.qApp.quit)
+    self.quitAction = QtGui.QAction("&Quit", self)
+    self.addAction(self.quitAction)
 
 class SystemTrayIcon(QtGui.QSystemTrayIcon):
   def __init__(self, parent=None):
@@ -40,11 +42,20 @@ class SystemTrayIcon(QtGui.QSystemTrayIcon):
     self.setContextMenu(self.right_menu)
 
     self.left_menu = LeftClickMenu()
+    self.connect(self.left_menu.quitAction,
+                 QtCore.SIGNAL("triggered()"), 
+                 QtCore.SLOT("on_test()"))
 
     self.activated.connect(self.click_trap)
 
+  @QtCore.pyqtSlot()
+  def on_test(self):
+    QtGui.QMessageBox.information("Systray", "Test")
+    self.hide()
+    sys.exit()
+
   def closeEvent(self, event):
-    if self.trayIcon.isVisible():
+    if self.isVisible():
       QtGui.QMessageBox.information(self, "Systray",
             "The program will keep running in the system tray. To "
             "terminate the program, choose <b>Quit</b> in the "
