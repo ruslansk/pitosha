@@ -1,1 +1,1 @@
-pyinstaller --onefile cert_copy.py
+pyinstaller --onefile --icon=rosette.ico cert_copy.py

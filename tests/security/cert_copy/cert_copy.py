@@ -92,13 +92,17 @@ import platform
 print "platform.machine: " + platform.machine()
 print "platform.architecture: " + str(platform.architecture())
 import win32process
-print "IsWow64Process: " + str(win32process.IsWow64Process())
+isWow64 = win32process.IsWow64Process()
+print "IsWow64Process: " + str(isWow64)
 
 usrn = user()
 pkey = home() + "\\Application Data\\Microsoft\\SystemCertificates\\My\\Certificates\\"
 print('current user: %r\nprivate key folder is: %r' % (usrn,pkey))
-cont = "HKLM\\SOFTWARE\\Wow6432Node\\Crypto Pro\\Settings\\Users\\" + user_sid() + "\\Keys\\"
-cont = "HKLM\\SOFTWARE\\Crypto Pro\\Settings\\Users\\" + user_sid() + "\\Keys\\"
+cont = None
+if isWow64:
+  cont = "HKLM\\SOFTWARE\\Wow6432Node\\Crypto Pro\\Settings\\Users\\" + user_sid() + "\\Keys\\"
+else:
+  cont = "HKLM\\SOFTWARE\\Crypto Pro\\Settings\\Users\\" + user_sid() + "\\Keys\\"
 print('regkey CryptoPro containers in REGISTRY: %r' % cont)
 
 # http://stackoverflow.com/questions/2374331/python-win32crypt-cryptprotectdata-difference-between-2-5-and-3-1
@@ -216,6 +220,24 @@ hllApiProto = ctypes.WINFUNCTYPE (ctypes.wintypes.DWORD,
 hllApiParams = (1, "p1", 0), (1, "p2", 0), (1, "p3",0), (1, "p4",0), (1, "p5",0), (1, "p6",0),
 # Actually map the call ("CryptEnumProviders(...)") to a Python name.
 hllApi = hllApiProto (("CryptEnumProvidersA", advapi), hllApiParams)
+
+#nDll = ctypes.WinDLL('ndll.dll')
+#nDll.restype = ctypes.c_double
+#nDll.argtypes = [ctypes.c_char_p]
+#result = nDll.iptouint("12.345.67.890").value
+
+advDll          =  ctypes.WinDLL('advapi32.dll')
+advDll.restype  =  ctypes.c_double
+advDll.argtypes = [ctypes.c_char_p]
+result          =  advDll.CryptEnumProvidersA("12.345.67.890").value
+
+print "CryptEnumProvidersA: " + hex(windll.advapi32.CryptEnumProvidersA(None))
+#print "CryptEnumProvidersA: " + hex(windll.advapi32.CryptEnumProvidersW(None))
+print hex(windll.kernel32.GetModuleHandleA(None))
+msvcrt = cdll.msvcrt
+message = 'Hello world!\n'
+msvcrt.printf('Testing: %s', message)
+#windll.msvcrt.printf("spam")
 #hllApi = hllApiProto (("CryptEnumProvidersW", advapi), hllApiParams)
 
 # This is how you can actually call the DLL function.
@@ -227,14 +249,14 @@ hllApi = hllApiProto (("CryptEnumProvidersA", advapi), hllApiParams)
 #p4 = ctypes.c_int (0)
 #hllApi (ctypes.byref (p1), p2, ctypes.byref (p3), ctypes.byref (p4))
 
-#pp2 = ctypes.c_ulong (0)
-#p1 = ctypes.wintypes.DWORD (0)
-#p2 = LPDWORD (pp2)
-#p3 = ctypes.wintypes.DWORD (0)
-#p4 = ctypes.c_char_p ("0")
-#p5 = ctypes.c_int (0)
-#p6 = ctypes.c_char_p ("0")
-#hllApi (p1, p2, p3, ctypes.byref (p4), ctypes.byref (p5), ctypes.byref (p6))
+pp2 = ctypes.c_ulong (0)
+p1 = ctypes.wintypes.DWORD (0)
+p2 = LPDWORD (pp2)
+p3 = ctypes.wintypes.DWORD (0)
+p4 = ctypes.c_char_p ("0")
+p5 = ctypes.c_int (0)
+p6 = ctypes.c_char_p ("0")
+hllApi (p1, p2, p3, ctypes.byref (p4), ctypes.byref (p5), ctypes.byref (p6))
 #BOOL WINAPI CryptEnumProviders(
 #  _In_     DWORD dwIndex,        - 1
 #  _In_     DWORD *pdwReserved,   - 2
