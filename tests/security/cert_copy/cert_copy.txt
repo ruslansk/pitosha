@@ -1,0 +1,15 @@
+-----------------------------------------------
+Windows Server 2008 R2 64-bit:
+
+platform.machine: AMD64
+platform.architecture: ('32bit', 'WindowsPE')
+IsWow64Process: True
+
+-----------------------------------------------
+Windows XP SP3 32-bit:
+
+platform.machine: x86
+platform.architecture: ('32bit', 'WindowsPE')
+IsWow64Process: False
+
+-----------------------------------------------
