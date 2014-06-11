@@ -1,6 +1,8 @@
 # http://code.activestate.com/recipes/66011-reading-from-and-writing-to-the-windows-registry/
 from _winreg import *
 
+print ""
+print ""
 print r"*** Reading from SOFTWARE\Microsoft\Windows\CurrentVersion\Run ***"
 aReg = ConnectRegistry(None,HKEY_LOCAL_MACHINE)
 
@@ -112,22 +114,22 @@ for i in win32security.CryptEnumProviders():
 
 # http://www.xjump.me/content.htm?id=44
 #from OpenSSL.crypto import *
-from M2Crypto import Engine, m2, X509
+#from M2Crypto import Engine, m2, X509
 import os
 cwd = os.getcwd()
-def test_capi():
-    e = Engine.load_dynamic_engine("capi", os.path.join(cwd, "capi.dll"))
-    capi = Engine.Engine("capi")
-    m2.engine_init(m2.engine_by_id("capi"))
-    capi.ctrl_cmd_string("list_csps",None)
-    #capi.ctrl_cmd_string("csp_name", "Infotecs Cryptographic Service Provider")
-    #capi.ctrl_cmd_string("csp_name", "Infotecs RSA/GOST Cryptographic Service Provider")
-    capi.ctrl_cmd_string("csp_name", "Crypto-Pro GOST R 34.10-2001 Cryptographic Service Provider")
-    b = None
-    capi.ctrl_cmd_string("list_containers", b)
-    print b
-    capi.ctrl_cmd_string("list_certs",None)
-    capi.finish()
+#def test_capi():
+#    e = Engine.load_dynamic_engine("capi", os.path.join(cwd, "capi.dll"))
+#    capi = Engine.Engine("capi")
+#    m2.engine_init(m2.engine_by_id("capi"))
+#    capi.ctrl_cmd_string("list_csps",None)
+#    #capi.ctrl_cmd_string("csp_name", "Infotecs Cryptographic Service Provider")
+#    #capi.ctrl_cmd_string("csp_name", "Infotecs RSA/GOST Cryptographic Service Provider")
+#    capi.ctrl_cmd_string("csp_name", "Crypto-Pro GOST R 34.10-2001 Cryptographic Service Provider")
+#    b = None
+#    capi.ctrl_cmd_string("list_containers", b)
+#    print b
+#    capi.ctrl_cmd_string("list_certs",None)
+#    capi.finish()
 
 #test_capi()
 # http://thomascannon.net/public/files/certexport.pdf
@@ -241,3 +243,7 @@ hllApi = hllApiProto (("CryptEnumProvidersA", advapi), hllApiParams)
 #  _Out_    LPTSTR pszProvName,   - 5
 #  _Inout_  DWORD *pcbProvName    - 6
 #);
+
+# -- The End --
+print ""
+print ""
