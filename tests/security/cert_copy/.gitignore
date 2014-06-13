@@ -2,3 +2,4 @@ build
 dist
 cert_copy.spec
 *.pyc
+containers
