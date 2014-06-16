@@ -1,3 +1,111 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+#######################################################################
+
+import cmd
+
+class CertToolCmd(cmd.Cmd):
+    """Simple command processor example."""
+
+    prompt = 'cert_tool #: '
+    #intro  = "Добро пожаловать в программу копирования сертификатов\n"\
+    #         "Для справки по доступным командам наберите: help\n"
+
+    def preloop(self):
+        #print 'Welcome to DPU collector :)'
+        print ''
+        print 'Добро пожаловать в программу копирования сертификатов'.decode("utf-8")
+        self.do_readme(None)
+
+    def do_readme(self, line):
+        print ''
+        print 'Выберите действие:'.decode("utf-8")
+        print ''
+        print '  1. export - Экспорт контейнеров и ключей'.decode("utf-8")
+        print '  2. import - Импорт контейнеров и ключей'.decode("utf-8")
+        print '  --------------------------------------------'
+        print '  0. quit   - Выход из программы'.decode("utf-8")
+        print ''
+
+    #def do_greet(self, person):
+    #    if person and person in self.FRIENDS:
+    #        greeting = 'hi, %s!' % person
+    #    elif person:
+    #        greeting = "hello, " + person
+    #    else:
+    #        greeting = 'hello'
+    #    print greeting
+    #def help_greet(self):
+    #    print '\n'.join([ 'greet [person]',
+    #                      'Greet the named person',
+    #                    ])
+    #def complete_greet(self, text, line, begidx, endidx):
+    #    if not text:
+    #        completions = self.FRIENDS[:]
+    #    else:
+    #        completions = [ f
+    #                        for f in self.FRIENDS
+    #                        if f.startswith(text)
+    #                      ]
+    #    return completions
+
+    def do_export(self, exp_cmd):
+        "  export - Экспорт контейнеров и ключей\n".decode("utf-8")
+        import sys
+        term_enc = sys.stdout.encoding
+        print term_enc
+        import capi	
+        capi.cryptopro.ListContainers(term_enc)
+        self.do_readme(None)
+
+    def do_import(self, imp_cmd):
+        "  import - Импорт контейнеров и ключей\n".decode("utf-8")
+        import sys
+        term_enc = sys.stdout.encoding
+        print term_enc
+        import capi	
+        capi.cryptopro.ListContainers(term_enc)
+        self.do_readme(None)
+
+    def do_1(self, line):
+        print "Экспорт".decode("utf-8") # print "".decode("utf-8")  - if file as UTF-8 !!!
+        self.do_export(line)
+
+    def do_2(self, line):
+        print "Импорт".decode("utf-8")
+        self.do_import(line)
+
+    def do_0(self, line):
+        return True
+
+    def do_h(self, line):
+        self.do_help(line)
+
+    def do_EOF(self, line):   # Ctrl-D, ^D$
+        return True
+    def do_exit(self, line):
+        return True
+    def do_e(self, line):
+        return True
+    def do_quit(self, line):
+        return True
+    def do_q(self, line):
+        "  q, quit, e, exit - Выход из программы\n".decode("utf-8")
+        return True
+
+    def postloop(self):
+        #print "Bye!"
+        print ''
+        print 'Хорошего дня!'.decode("utf-8")
+
+if __name__ == '__main__':
+    CertToolCmd().cmdloop()
+
+exit()
+
+#######################################################################
+
 # http://code.activestate.com/recipes/66011-reading-from-and-writing-to-the-windows-registry/
 from _winreg import *
 
