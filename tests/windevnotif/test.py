@@ -1,3 +1,4 @@
+DEBUG    = True
 observer = None
 ser_port = None
 s        = 0
@@ -6,18 +7,22 @@ ser      = None
 #--------------------------------------------------------------------
 import signal
 import sys
+import os
+
 def signal_handler(signal, frame):
     global s, ser
     print '\nYou pressed Ctrl+C!'
-    print "MTK_Finalize"
     if s > 18:
+      print "MTK_Finalize"
       serialPost(ser, "B7".decode("hex"))
       time.sleep(0.1)
     if ser.isOpen(): ser.close()
-    sys.exit(0)
+    #sys.exit(0)
+    os._exit(0)
 
 signal.signal(signal.SIGINT, signal_handler)
 
+#--------------------------------------------------------------------
 import os
 import serial
 from serial.tools import list_ports
@@ -41,8 +46,8 @@ def serial_ports():
         yield port[0]
 
 
-if __name__ == '__main__':
-    print(list(serial_ports()))
+#if __name__ == '__main__':
+#    print(list(serial_ports()))
 
 #exit()
     
@@ -53,12 +58,12 @@ import serial, time, binascii
 def serialPost(ser, data):
     #time.sleep(0.5)
     #data = chr(0x44)
-    print "-> " + binascii.b2a_hex(data)
+    print "           -> " + binascii.b2a_hex(data)
     ser.write(data)
     #ser.flush()
 
 def serialPostL(ser, data, slen, scnt):
-    sys.stdout.write("\r" + str(scnt) + " of " + str(slen) + " -> " + binascii.b2a_hex(data))
+    sys.stdout.write("\r" + str(scnt) + " of " + str(slen) + " <- " + binascii.b2a_hex(data))
     if slen == scnt: sys.stdout.write("\n")
     #sys.stdout.flush()
     ser.write(data)
@@ -149,13 +154,17 @@ def conn_port (ser_port):
     print "                                   "
     exit()
 
-  loader1 = open("loader1.bin", "rb").read()
+  from hktool.bootload.samsung import sgh_e730
+
+  #loader1 = open("loader1.bin", "rb").read()
+  loader1 = sgh_e730.load_bootcode_first()
   print "loader1.bin data size is: " + str(len(loader1))
   ldr1_i = 0
   ldr1_l = len(loader1)
   ldr1_c = "4c00".decode("hex")
 
-  loader2 = open("loader2.bin", "rb").read()
+  #loader2 = open("loader2.bin", "rb").read()
+  loader2 = sgh_e730.load_bootcode_second()
   print "loader2.bin data size is: " + str(len(loader2))
   ldr2_i = 0
   ldr2_l = len(loader2)
@@ -199,7 +208,7 @@ def conn_port (ser_port):
         data = ser.read(n)
         l = len(data)
         #if s != 6 or ldr1_i == 0:
-        print "RX is L: " + str(l) + " -> " + binascii.b2a_hex(data)
+        print "RX is L: " + str(l) + " <- " + binascii.b2a_hex(data)
         if s == 1:
           if data[l-1] == chr(0x5F):
             serialPost(ser, chr(0x0A))
@@ -413,132 +422,15 @@ def conn_port (ser_port):
 
 #===========================================================
 
-import win32api, win32con, win32gui
-from ctypes import *
+from hktool import windevnotif
 
-#
-# Device change events (WM_DEVICECHANGE wParam)
-#
-DBT_DEVICEARRIVAL = 0x8000
-DBT_DEVICEQUERYREMOVE = 0x8001
-DBT_DEVICEQUERYREMOVEFAILED = 0x8002
-DBT_DEVICEMOVEPENDING = 0x8003
-DBT_DEVICEREMOVECOMPLETE = 0x8004
-DBT_DEVICETYPESSPECIFIC = 0x8005
-DBT_CONFIGCHANGED = 0x0018
+from threading import Thread
+from time import sleep as Sleep
 
-#
-# type of device in DEV_BROADCAST_HDR
-#
-DBT_DEVTYP_OEM = 0x00000000
-DBT_DEVTYP_DEVNODE = 0x00000001
-DBT_DEVTYP_VOLUME = 0x00000002
-DBT_DEVTYPE_PORT = 0x00000003
-DBT_DEVTYPE_NET = 0x00000004
-
-#
-# media types in DBT_DEVTYP_VOLUME
-#
-DBTF_MEDIA = 0x0001
-DBTF_NET = 0x0002
-
-TCHAR = c_char * 256
-WORD  = c_ushort
-DWORD = c_ulong
-
-class DEV_BROADCAST_HDR (Structure):
-  _fields_ = [
-    ("dbch_size", DWORD),
-    ("dbch_devicetype", DWORD),
-    ("dbch_reserved", DWORD)
-  ]
-
-class DEV_BROADCAST_VOLUME (Structure):
-  _fields_ = [
-    ("dbcv_size", DWORD),
-    ("dbcv_devicetype", DWORD),
-    ("dbcv_reserved", DWORD),
-    ("dbcv_unitmask", DWORD),
-    ("dbcv_flags", WORD)
-  ]
-
-class DEV_BROADCAST_PORT (Structure):
-  _fields_ = [
-    ("dbcp_size", DWORD),
-    ("dbcp_devicetype", DWORD),
-    ("dbcp_reserved", DWORD),
-    ("dbcp_name", TCHAR)
-  ]
-
-def drive_from_mask (mask):
-  n_drive = 0
-  while 1:
-    if (mask & (2 ** n_drive)): return n_drive
-    else: n_drive += 1
-
-class Notification:
-
-  def __init__(self):
-    message_map = {
-      win32con.WM_DEVICECHANGE : self.onDeviceChange
-    }
-
-    wc = win32gui.WNDCLASS ()
-    hinst = wc.hInstance = win32api.GetModuleHandle (None)
-    wc.lpszClassName = "DeviceChangeDemo"
-    wc.style = win32con.CS_VREDRAW | win32con.CS_HREDRAW;
-    wc.hCursor = win32gui.LoadCursor (0, win32con.IDC_ARROW)
-    wc.hbrBackground = win32con.COLOR_WINDOW
-    wc.lpfnWndProc = message_map
-    classAtom = win32gui.RegisterClass (wc)
-    style = win32con.WS_OVERLAPPED | win32con.WS_SYSMENU
-    self.hwnd = win32gui.CreateWindow (
-      classAtom,
-      "Device Change Demo",
-      style,
-      0, 0,
-      win32con.CW_USEDEFAULT, win32con.CW_USEDEFAULT,
-      0, 0,
-      hinst, None
-    )
-
-  def onDeviceChange (self, hwnd, msg, wparam, lparam):
-    #
-    # WM_DEVICECHANGE:
-    #  wParam - type of change: arrival, removal etc.
-    #  lParam - what's changed?
-    #    if it's a volume then...
-    #  lParam - what's changed more exactly
-    #
-    dev_broadcast_hdr = DEV_BROADCAST_HDR.from_address (lparam)
-
-    if wparam == DBT_DEVICEARRIVAL:
-      print "Something's arrived"
-      #print(list(dev_broadcast_hdr.items()))
-
-      if dev_broadcast_hdr.dbch_devicetype == DBT_DEVTYPE_PORT:
-        print "It's a port!"
-        dev_broadcast_port = DEV_BROADCAST_PORT.from_address (lparam)
-        print(dev_broadcast_port.dbcp_size)
-        print(dev_broadcast_port.dbcp_devicetype)
-        print(dev_broadcast_port.dbcp_reserved)
-        print(dev_broadcast_port.dbcp_name)
-        # see: http://anh.cs.luc.edu/python/hands-on/3.1/handsonHtml/functions.html#local-scope
-        port_name = dev_broadcast_port.dbcp_name
-        conn_port(port_name)
-
-      if dev_broadcast_hdr.dbch_devicetype == DBT_DEVTYP_VOLUME:
-        print "It's a volume!"
-
-        dev_broadcast_volume = DEV_BROADCAST_VOLUME.from_address (lparam)
-        if dev_broadcast_volume.dbcv_flags & DBTF_MEDIA:
-          print "with some media"
-          drive_letter = drive_from_mask (dev_broadcast_volume.dbcv_unitmask)
-          print "in drive", chr (ord ("A") + drive_letter)
-
-    return 1
-
-#----- MAIN CODE ---------------
+#----- MAIN CODE -------------------------------------------
 if __name__=='__main__':
-  w = Notification ()
-  win32gui.PumpMessages ()
+  Thread(target = windevnotif.run_notify).start()
+  Sleep(1)
+  port = windevnotif.get_notify()
+  print "port_name is: " + port
+  conn_port(port)
