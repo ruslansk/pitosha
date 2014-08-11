@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 DEBUG    = True
 observer = None
 ser_port = None
@@ -422,7 +425,9 @@ def conn_port (ser_port):
 
 #===========================================================
 
-from hktool import windevnotif
+from hktool.hotplug  import windevnotif
+#from hktool.bootload import mediatek
+from hktool.bootload.mediatek import MTKBootload
 
 from threading import Thread
 from time import sleep as Sleep
@@ -433,4 +438,6 @@ if __name__=='__main__':
   Sleep(1)
   port = windevnotif.get_notify()
   print "port_name is: " + port
-  conn_port(port)
+  #conn_port(port)
+  #mediatek.init(port)
+  m = MTKBootload(port)
