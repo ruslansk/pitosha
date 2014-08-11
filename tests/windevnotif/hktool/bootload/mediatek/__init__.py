@@ -162,7 +162,9 @@ class MTKBootload():
 
         if self.ser.isOpen():
           try:
+            print ''
             print 'work with UART port as MediaTek MCU'
+            print ''
             self.ser.flushInput()    # flush input buffer, discarding all its contents
             self.ser.flushOutput()   # flush output buffer, aborting current output 
                                 # and discard all that is in buffer
@@ -209,10 +211,13 @@ class MTKBootload():
                 res = self.oin.onWait()
             if set(xlist) == set(x[-1]):
                 mcu = binascii.b2a_hex(res)
+                print ''
                 print "mcu is: " + mcu
                 if mcu == '6253':
                     print "run mcu " + mcu + " boot code"
+                    print ''
                     from mt6253 import xboot
+                    from mt6253 import xdwag
 
         # specific mtk mcu boot code
         for xlist in xboot:
@@ -227,7 +232,12 @@ class MTKBootload():
                 break
             if tsk.lower() in ['get']:
                 res = self.oin.onWait()
-            print tsk
+            if tsk.lower() in ['da', 'downagent']:
+                for xlist in xdwag:
+                    res = self.out.push(xlist[0], self.oin.onWait)
+                    if xlist[2] == '+':
+                        res = self.oin.onWait()
+                continue
             any = tsk[len(tsk)-1:]
             if any == '+':
                 tsk = tsk[:-1]
