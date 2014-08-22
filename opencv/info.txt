@@ -1,0 +1,26 @@
+   Программный захват с вебкамеры / Хабрахабр
+   http://habrahabr.ru/post/148692/
+
+   Установка и настройка OpenCV (2.3) + Python (2.7) на Windows 7 / Компьютерное зрение / RoboCraft
+   http://robocraft.ru/blog/computervision/854.html
+
+   Welcome to OpenCV-Python Tutorials’s documentation! — OpenCV-Python Tutorials 1 documentation
+   https://opencv-python-tutroals.readthedocs.org/en/latest/
+
+   Introduction to OpenCV-Python Tutorials — OpenCV 3.0.0-dev documentation
+   http://docs.opencv.org/trunk/doc/py_tutorials/py_setup/py_intro/py_intro.html
+
+   OpenCV-Python
+   http://opencvpython.blogspot.ru/
+
+   Блог Программиста: Python+OpenCv распознавание лиц и определение расстояния до них (версия простая )
+   http://alexkutsan.blogspot.ru/2012/10/pythonopencv.html
+
+   haarcascade_frontalface_alt.xml - Поиск в Google
+   https://www.google.ru/search?q=haarcascade_frontalface_alt.xml&oq=haarcascade_frontalface_alt.xml&aqs=chrome..69i57&sourceid=chrome&ie=UTF-8
+
+   https://raw.githubusercontent.com/Itseez/opencv/master/data/haarcascades/haarcascade_frontalface_alt.xml
+   https://raw.githubusercontent.com/Itseez/opencv/master/data/haarcascades/haarcascade_frontalface_alt.xml
+
+   haarcascade_frontalface_alt.xml - warai - Haar Cascade File - A small python script for replacing faces with logos - Google Project Hosting
+   http://code.google.com/p/warai/downloads/detail?name=haarcascade_frontalface_alt.xml
