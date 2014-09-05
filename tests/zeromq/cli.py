@@ -2,7 +2,9 @@ import zmq
 context = zmq.Context()
 socket = context.socket(zmq.REQ)
 #socket.connect("tcp://127.0.0.1:5000")
-socket.connect("tcp://192.168.1.35:5000")
+host = raw_input("enter host for tcp://[host]:3333) $> ")   # Python 2.x
+socket.connect("tcp://" + host + ":3333")
+#socket.connect("tcp://192.168.1.35:5000")
 #socket.connect("tcp://127.0.0.1:6000")
 
 import sys
@@ -13,7 +15,7 @@ def rexec(socket, msg, isrecv=False):
         msg_in = socket.recv()
         return msg_in
 
-for i in range(10):
+for i in range(3):
     msg = "msg %s" % i
     socket.send(msg)
     print "Sending", msg
