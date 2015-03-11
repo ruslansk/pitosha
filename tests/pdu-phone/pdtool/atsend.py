@@ -205,5 +205,81 @@ def st_send(atcmd):
     sockfd.send(chr(26))                                  # CTRL+Z
     sockfd.close()
 
-#################################################################################
+def st_send_port(atcmd):   #   atcmd = b'ATZ\r'
+    #
+    # USB модем ZTE 626 с прошивкой Revision: BD_BLNMOP673M3V1.0.0B01
+    # без привязки к оператору
+    # предварительно на модеме выполнено
+    #   AT+ZCDRUN=8       Disable cd (flashdrive) autorun
+    # что бы опознавался сразу как модем
+    # в настройках указываем:
+    #   Additional AT commands: AT+CPBS="SM"\r\nAT+CPMS="SM","SM",""\r\n
+    # эти команды указывают, где хранятся SMS сообщения (без этих команд
+    # модем раз в секунду пишет сообщение +ZUSIMR: 2).
+    # и остальные стандартные параметры...
+    #
+    #phone = serial.Serial("/dev/ttyS0",  460800, timeout=5)
+    #phone = serial.Serial("/dev/ttyACM0",  460800, timeout=5)
+    #phone = serial.Serial('/dev/ttyUSB1', 115200, timeout=5)
+    # in windows:
+    #    phone = serial.Serial(port='COM1', baudrate=115200, bytesize=8, parity='N', stopbits=1, timeout=1, xonoff=False, rtscts=False, dsrdtr=False)
+    #    phone = serial.Serial(port=3,baudrate=115200,timeout=0,rtscts=0,xonxoff=0)
+    #    port=0  <-->  port='COM1'
+    #    port=1  <-->  port='COM2'
 
+    #phone = serial.Serial("/dev/ttyUSB1",
+    #                              460800,
+    #                          bytesize = serial.EIGHTBITS,
+    #                            parity = serial.PARITY_NONE,
+    #                          stopbits = serial.STOPBITS_ONE,
+    #                           timeout = 5)
+
+    # initialization and open the port
+    # possible timeout values:
+    #    1. None: wait forever, block call
+    #    2. 0: non-blocking mode, return immediately
+    #    3. x, x is bigger than 0, float allowed, timeout block call
+
+    ser = serial.Serial()
+    ser.port         = "/dev/ttyUSB1"
+    #ser.baudrate    = 9600
+    ser.baudrate     = 460800
+    ser.bytesize     = serial.EIGHTBITS     # number of bits per bytes
+    ser.parity       = serial.PARITY_NONE   # set parity check: no parity
+    ser.stopbits     = serial.STOPBITS_ONE  # number of stop bits
+    #ser.timeout     = None                 # block read
+    ser.timeout      = 1                    # non-block read
+    #ser.timeout     = 2                    # timeout block read
+    ser.xonxoff      = False                # disable software flow control
+    ser.rtscts       = False                # disable hardware (RTS/CTS) flow control
+    ser.dsrdtr       = False                # disable hardware (DSR/DTR) flow control
+    ser.writeTimeout = 2                    # timeout for write
+
+    try:
+      ser.open()
+    except Exception, e:
+      print "error open serial port: " + str(e)
+      exit()
+
+    if ser.isOpen():
+      try:
+        ser.flushInput()                    # flush input buffer, discarding all its contents
+        ser.flushOutput()                   # flush output buffer, aborting current output
+                                            # and discard all that is in buffer
+
+        ser.write(b'AT+CPBS="SM"\r')        # эти команды указывают, где хранятся SMS сообщения
+        time.sleep(0.5)                     # (без этих команд
+        ser.write(b'AT+CPMS="SM","SM",""\r')# модем раз в секунду пишет сообщение +ZUSIMR: 2).
+        time.sleep(0.5)
+
+        ser.write(atcmd + b'\r')            # manual AT-command
+        time.sleep(0.5)
+        #data = ser.readline()
+        data = ser.readall()
+        print data
+        ser.write(bytes([26]))              # CTRL+Z
+        time.sleep(0.5)
+      finally:
+        ser.close()
+
+#################################################################################

@@ -183,7 +183,7 @@ class PduToolCmd(cmd.Cmd):
                             if f.startswith(text)
                           ]
         return completions
-		
+
     def do_greet(self, person):
         if person and person in self.FRIENDS:
             greeting = 'hi, %s!' % person
@@ -205,6 +205,22 @@ class PduToolCmd(cmd.Cmd):
                             if f.startswith(text)
                           ]
         return completions
+
+    def do_atsend(self, line):
+        if not line:
+            print 'enter ATcommand'
+        else:
+            print line
+            print
+            from pdtool import atsend as ats
+            #if is_changed(ats): ats = reload(ats)
+            reload(ats)
+            if line:
+                ats.st_send_port(line)
+    def help_atsend(self):
+        print '\n'.join([ 'atsend ATcommand',
+                          'send ATcommand to port',
+                        ])
 
     def do_decode(self, line):
         from pdtool import parse as par
